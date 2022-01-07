@@ -1,0 +1,227 @@
+name: valet-issue-ops
+
+on:
+  issue_comment:
+    types: [created]
+
+env:
+  GITHUB_INSTANCE_URL: https://github.com
+  GITHUB_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
+  JENKINS_INSTANCE_URL: https://jenkout.westus2.cloudapp.azure.com
+  JENKINS_USERNAME: ${{ secrets.jenkins_username }}
+  JENKINS_ACCESS_TOKEN: ${{ secrets.jenkins_access_token }}
+  JENKINSFILE_ACCESS_TOKEN: ${{ secrets.jenkinsfile_access_token }}
+  AZURE_DEVOPS_ACCESS_TOKEN: ${{ secrets.azure_devops_access_token }}
+  TRAVIS_CI_ACCESS_TOKEN: ${{ secrets.travis_ci_access_token }}
+  TRAVIS_CI_SOURCE_GITHUB_ACCESS_TOKEN: ${{ secrets.travis_ci_source_github_access_token }}
+  GITLAB_ACCESS_TOKEN: ${{ secrets.gitlab_access_token }}
+  CIRCLE_CI_ACCESS_TOKEN: ${{ secrets.circle_ci_access_token }}
+  CIRCLE_CI_SOURCE_GITHUB_ACCESS_TOKEN: ${{ secrets.circle_ci_source_github_access_token }}
+
+jobs:
+  execute-valet:
+    runs-on: ubuntu-latest
+    outputs:
+      command: ${{ steps.prepare.outputs.command }}
+      log-filename: ${{ steps.logs.outputs.filename }}
+    container:
+      image: ghcr.io/valet-customers/valet-cli:latest
+      credentials:
+        username: ${{ secrets.valet_ghcr_username }}
+        password: ${{ secrets.valet_ghcr_password }}
+    steps:
+      - uses: actions-ecosystem/action-add-labels@v1
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: valet-running
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: bundle install --without development
+      - name: Prepare arguments
+        id: prepare
+        run: |
+          echo "${{ toJSON(github.event.issue.labels.*.name) }}"
+          ./bin/parse_issue "${{ github.event.issue.body }}" "${{ github.event.comment.body }}" "${{ toJSON(github.event.issue.labels.*.name) }}"
+      - name: Validate arguments
+        run: |
+          if [ -z "${{ steps.prepare.outputs.provider }}" ]; then
+           echo "Unable to determine provider"
+           exit 1
+          elif [ -z "${{ steps.prepare.outputs.command }}" ]; then
+           echo "Unable to determine command"
+           exit 1
+          fi
+      - name: execute valet
+        run: |
+          valet ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
+            ${{ steps.prepare.outputs.args }} \
+            --output-dir /data/output \
+            --no-telemetry
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          path: /data/output/
+          name: output
+      - if: always()
+        id: logs
+        run: |
+          path=$(ls /data/output/log/*.log | head -1)
+          filename=$(basename "$path")
+          echo "LOG_FILE_PATH=$path" >> $GITHUB_ENV
+          echo "::set-output name=filename::$filename"
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          path: ${{ env.LOG_FILE_PATH }}
+          name: logs
+
+  audit:
+    runs-on: ubuntu-latest
+    if: needs.execute-valet.outputs.command == 'audit'
+    needs: execute-valet
+    steps:
+      - uses: actions/download-artifact@v2
+        if: always()
+        with:
+          name: output
+      - uses: actions/github-script@v5
+        with:
+          script: |
+            const fs = require('fs')
+            const summaryText = fs.readFileSync("./audit_summary.md", "utf8")
+            const artifactUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${process.env.GITHUB_RUN_ID}`
+            const body = `Audit successfully completed :rocket:
+
+            <details>
+              <summary>Audit summary :point_down:</summary>
+
+              \`\`\`
+              ${summaryText}
+              \`\`\`
+
+            </details>
+
+            Download full results [here](${artifactUrl})
+            `
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            })
+  dry-run:
+    runs-on: ubuntu-latest
+    if: needs.execute-valet.outputs.command == 'dry-run'
+    needs: execute-valet
+    steps:
+      - uses: actions/download-artifact@v2
+        if: always()
+        with:
+          name: output
+      - uses: actions/github-script@v5
+        with:
+          script: |
+            const fs = require('fs')
+            const directory = "${{ github.workspace }}/"
+            const globber = await glob.create(`${directory}**/*.yml`)
+
+            const workflows = []
+            for await (const file of globber.globGenerator()) {
+              const content = fs.readFileSync(file, 'utf8')
+              workflows.push(
+                "<details>",
+                `  <summary>${file.substring(directory.length)}</summary>`,
+                "",
+                "```yaml",
+                content,
+                "```",
+                "</details>",
+                ""
+              );
+            }
+
+            const body = `Dry run was successful :boom:
+
+            Transformed workflows:
+
+            ${workflows.join("\n")}
+            `
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            })
+
+  migrate:
+    runs-on: ubuntu-latest
+    if: needs.execute-valet.outputs.command == 'migrate'
+    needs: execute-valet
+    steps:
+      - uses: actions/download-artifact@v2
+        if: always()
+        with:
+          name: logs
+      - id: pull-request-url
+        run: |
+          pullRequest=$(grep "${{ env.pullRequestPattern }}" ${{ needs.execute-valet.outputs.log-filename }} | sed -rn "s/^.*${{ env.pullRequestPattern }}'(.+)'.*$/\1/p")
+          echo $pullRequest
+          echo ::set-output name=output::$pullRequest
+        env:
+          pullRequestPattern: "Pull request: "
+      - uses: actions/github-script@v5
+        env:
+          PULL_REQUEST_URL: "${{ steps.pull-request-url.outputs.output }}"
+        with:
+          script: |
+            const body = `Migration was successful :sparkles:
+
+            Continue to the [pull request](${process.env.PULL_REQUEST_URL}) to complete the migration.
+            `
+            try {
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body
+              })
+            } catch(e) {
+              console.log(e)
+            }
+
+  cleanup:
+    runs-on: ubuntu-latest
+    needs: [execute-valet, audit, migrate, dry-run]
+    if: always()
+    steps:
+      - uses: actions/download-artifact@v2
+        if: always() && needs.execute-valet.result == 'failure'
+        with:
+          name: logs
+      - uses: actions/github-script@v5
+        if: always() && needs.execute-valet.result == 'failure'
+        with:
+          script: |
+            const fs = require('fs')
+            const body = `Something went wrong. Please check the logs for more information.
+
+            <details>
+              <summary>Logs :point_down:</summary>
+
+              \`\`\` 
+              ${fs.readFileSync("${{ needs.execute-valet.outputs.log-filename }}", "utf8")}
+              \`\`\`
+            </details>
+            `
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            })
+      - uses: actions-ecosystem/action-remove-labels@v1
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: valet-running

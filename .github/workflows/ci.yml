@@ -1,0 +1,33 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+env:
+  ruby_version: 2.7.1
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.ruby_version }}
+      - name: Install dependencies
+        run: bundle install
+      - name: Run specs
+        run: bin/rspec
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1.47.0
+        with:
+          ruby-version: ${{ env.ruby_version }}
+      - name: Install dependencies
+        run: bundle install
+      - name: Lint
+        run: bin/rubocop

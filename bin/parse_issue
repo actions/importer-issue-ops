@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "yaml"
+require "open3"
+
+require_relative "./../cli"
+
+issue_content, comment_body, labels = ARGV
+
+puts labels
+
+raise "No issue content provided" if issue_content.nil?
+raise "No comment provided" if comment_body.nil?
+raise "No labels provided" if labels.nil?
+
+provider = Provider.new(labels)
+command = Command.new(comment_body)
+
+arguments = Arguments.new(provider, command, issue_content)
+
+return unless command.valid?
+
+provider.to_output
+command.to_output
+arguments.to_output

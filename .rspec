@@ -1,0 +1,5 @@
+--format progress
+--color
+--require spec_helper
+--format RSpec::Github::Formatter
+--pattern "**/*_spec.rb"
