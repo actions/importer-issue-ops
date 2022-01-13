@@ -4,6 +4,9 @@ on:
   issue_comment:
     types: [created]
 
+permissions:
+  issues: write
+
 env:
   GITHUB_INSTANCE_URL: https://github.com
   GITHUB_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
