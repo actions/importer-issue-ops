@@ -60,8 +60,7 @@ jobs:
         run: |
           valet ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
             ${{ steps.prepare.outputs.args }} \
-            --output-dir /data/output \
-            --no-telemetry
+            --output-dir /data/output
       - uses: actions/upload-artifact@v2
         if: always()
         with:
