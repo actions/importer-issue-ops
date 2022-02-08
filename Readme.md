@@ -6,7 +6,7 @@ Valet can be orchestrated using GitHub Actions and Issues. This template reposit
 
 Complete the following steps:
 
-1. Create a new repository using this repository as the template by clicking [here](https://github.com/github/valet-issue-ops/generate). 
+1. Create a new repository using this repository as the template by clicking [here](https://github.com/valet/issue-ops/generate). 
 2. Create the following labels in this new repository: `jenkins`, `azure-devops`, `circle-ci`, `gitlab`, `travis-ci`, and `valet-running`.
 3. Add the repository secrets described below that are relevant to the CI/CD providers being migrated:
 
