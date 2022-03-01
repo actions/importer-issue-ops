@@ -4,7 +4,7 @@ Valet is a tool to help facilitate migrations to GitHub Actions. Today, Valet su
 
 > Valet is in a private preview and customers must be onboarded prior to using the Valet Issue Ops workflow. Please reach out to [GitHub Sales](https://github.com/enterprise/contact) to enquire about getting into the private preview.
 
-This repository is informally maintained by GitHub. However, this is not a supported GitHub product. Customers leveraging these tools must understand that any support must come through a paid GitHub Expert Services engagement.
+This repository is informally maintained by GitHub. However, this is not a supported GitHub product. Customers leveraging this repository must understand that any support must come through a paid GitHub Expert Services engagement.
 
 ## Getting started
 
