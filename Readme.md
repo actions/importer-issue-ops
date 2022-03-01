@@ -1,6 +1,10 @@
 # Valet Issue Ops
 
-Valet can be orchestrated using GitHub Actions and Issues. This template repository can be used to enable this workflow to migrate pipelines from an existing CI/CD instance to GitHub Actions.
+Valet is a tool to help facilitate migrations to GitHub Actions. Valet supports migrating pipelines from Jenkins, Azure DevOps, GitLab CI, Circle CI, and Travis CI to GitHub Actions. This repository provides functionality that wraps the Valet CLI to allow it to be orchestrated through GitHub Actions and Issues.
+
+> Valet is in a private preview and customers must be onboarded prior to using the Valet Issue Ops workflow. Please reach out to [GitHub Sales](https://github.com/enterprise/contact) to enquire about getting into the private preview.
+
+This repository is informally maintained by GitHub. However, this is not a supported GitHub product. Customers leveraging this repository must understand that any support must come through a paid GitHub Expert Services engagement.
 
 ## Getting started
 
