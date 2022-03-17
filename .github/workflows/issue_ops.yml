@@ -56,13 +56,7 @@ jobs:
            echo "Unable to determine command"
            exit 1
           fi
-      - id: installation-id
-        run: |
-          id=$(echo "{\"issueOpsRepository\":\"$(echo $GITHUB_REPOSITORY | sha1sum)\" }" | base64)
-          echo ::set-output name=id::$id
       - name: execute valet
-        env:
-          INSTALLATION_ID: ${{ steps.installation-id.outputs.id }}
         run: |
           valet ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
             ${{ steps.prepare.outputs.args }} \
