@@ -88,3 +88,9 @@ Optionally, the following environment variables can be set:
 ## Pipeline migration
 
 Once configured, pipelines can be migrated to GitHub Actions by opening an issue with the relevant issue template and following the instructions.
+
+## Privacy statement
+
+Valet will collect anonymous telemetry when running to help us improve the tool. This can be disable by adding the `--no-telemetry` flag to any command provided to the Valet CLI.
+
+Additionally, by using this repository you agree to GitHub's [Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement#data-retention-and-deletion-of-data) and the [additional terms for Actions](https://docs.github.com/en/site-policy/github-terms/github-terms-for-additional-products-and-features#actions).
