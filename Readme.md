@@ -4,9 +4,9 @@ The Valet IssueOps template repository provides the functionality necessary to r
 
 Valet helps facilitate the migration of Azure DevOps, Circle CI, GitLab CI, Jenkins, and Travis CI pipelines to GitHub Actions. Valet is distributed as a CLI and offers three commands you can use to migrate pipelines:
 
-`audit`: An audit will fetch all the pipelines defined in an existing CI server, convert each pipeline to its equivalent in GitHub Actions, and write a report that summarizes how complete of a migration Valet can provide.
-`dry-run`: A dry run will fetch a single pipeline definition, convert it to its equivalent in GitHub Actions, and write a file (or files) to disk containing the converted workflow.
-`migrate`: A migration will fetch a single pipeline definition, convert it to its equivalent in GitHub Actions, and open a pull request to a repository with the converted workflow.
+- `audit`: An audit will fetch all the pipelines defined in an existing CI server, convert each pipeline to its equivalent in GitHub Actions, and write a report that summarizes how complete of a migration Valet can provide.
+- `dry-run`: A dry run will fetch a single pipeline definition, convert it to its equivalent in GitHub Actions, and write a file (or files) to disk containing the converted workflow.
+- `migrate`: A migration will fetch a single pipeline definition, convert it to its equivalent in GitHub Actions, and open a pull request to a repository with the converted workflow.
 
 > Because Valet is in private preview, customers must be onboarded prior to using the Valet IssueOps workflow. Please reach out to GitHub Sales to inquire about being added to the private preview.
 
