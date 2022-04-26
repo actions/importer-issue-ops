@@ -1,10 +1,16 @@
 # Valet Issue Ops
 
-Valet is a tool to help facilitate migrations to GitHub Actions. Valet supports migrating pipelines from Jenkins, Azure DevOps, GitLab CI, Circle CI, and Travis CI to GitHub Actions. This repository provides functionality that wraps the Valet CLI to allow it to be orchestrated through GitHub Actions and Issues.
+The Valet IssueOps template repository provides the functionality necessary to run Valet commands through GitHub Actions and Issues, allowing you to migrate your CI/CD workflows without needing to install software on your local machine. This approach is especially useful for organizations that want to enable self-service migrations to GitHub Actions.
 
-> Valet is in a private preview and customers must be onboarded prior to using the Valet Issue Ops workflow. Please reach out to [GitHub Sales](https://github.com/enterprise/contact) to enquire about getting into the private preview.
+Valet helps facilitate the migration of Azure DevOps, Circle CI, GitLab CI, Jenkins, and Travis CI pipelines to GitHub Actions. Valet is distributed as a CLI and offers three commands you can use to migrate pipelines:
 
-Note: this repository is informally maintained by GitHub. Support can be requested by creating an issue in this repository. We'll be available to provide support Monday through Friday between the hours of 9 AM EST and 5 PM PST.
+`audit`: An audit will fetch all the pipelines defined in an existing CI server, convert each pipeline to its equivalent in GitHub Actions, and write a report that summarizes how complete of a migration Valet can provide.
+`dry-run`: A dry run will fetch a single pipeline definition, convert it to its equivalent in GitHub Actions, and write a file (or files) to disk containing the converted workflow.
+`migrate`: A migration will fetch a single pipeline definition, convert it to its equivalent in GitHub Actions, and open a pull request to a repository with the converted workflow.
+
+> Because Valet is in private preview, customers must be onboarded prior to using the Valet IssueOps workflow. Please reach out to GitHub Sales to inquire about being added to the private preview.
+
+**Note**: You can request support by using [this](https://github.com/valet-customers/issue-ops/issues/new?assignees=&labels=support&template=support.md&title=) template to create an issue. The Valet team responds to support requests Monday through Friday between the hours of 9AM EST and 5PM PST.
 
 ## Getting started
 
