@@ -28,18 +28,22 @@ jobs:
     outputs:
       command: ${{ steps.prepare.outputs.command }}
       log-filename: ${{ steps.logs.outputs.filename }}
-    container:
-      image: ghcr.io/valet-customers/valet-cli:latest
-      credentials:
-        username: ${{ secrets.valet_ghcr_username }}
-        password: ${{ secrets.valet_ghcr_password }}
     steps:
+      - name: Install Valet CLI
+        shell: bash
+        run: |
+          echo ${{ secrets.valet_ghcr_password }} | gh auth login --with-token
+          gh extension install github/gh-valet
+          gh valet update --username ${{ secrets.valet_ghcr_username }} --password ${{ secrets.valet_ghcr_password }}
       - uses: actions-ecosystem/action-add-labels@v1
         if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           labels: valet-running
       - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.1
       - name: Install dependencies
         run: bundle install --without development
       - name: Prepare arguments
@@ -58,18 +62,18 @@ jobs:
           fi
       - name: execute valet
         run: |
-          valet ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
+          gh valet ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
             ${{ steps.prepare.outputs.args }} \
-            --output-dir /data/output
+            --output-dir output
       - uses: actions/upload-artifact@v2
         if: always()
         with:
-          path: /data/output/
+          path: output/
           name: output
       - if: always()
         id: logs
         run: |
-          path=$(ls /data/output/log/*.log | head -1)
+          path=$(ls output/log/*.log | head -1)
           filename=$(basename "$path")
           echo "LOG_FILE_PATH=$path" >> $GITHUB_ENV
           echo "::set-output name=filename::$filename"

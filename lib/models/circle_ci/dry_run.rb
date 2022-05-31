@@ -5,7 +5,6 @@ module CircleCI
     include IssueParser
 
     def initialize(issue_content, command)
-      # TODO: manually test this
       @organization = parameter_from_issue("Organization", issue_content)
       @project = command.options["project"]
     end
