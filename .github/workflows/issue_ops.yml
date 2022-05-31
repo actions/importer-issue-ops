@@ -34,6 +34,8 @@ jobs:
         run: |
           gh extension install github/gh-valet
           gh valet update --username ${{ secrets.valet_ghcr_username }} --password ${{ secrets.valet_ghcr_password }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.valet_ghcr_password }}
       - uses: actions-ecosystem/action-add-labels@v1
         if: always()
         with:
