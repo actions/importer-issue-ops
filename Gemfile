@@ -4,7 +4,9 @@ source "https://rubygems.org"
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem "require_all", "~> 3.0.0"
+gem "activesupport", "~> 7.0"
+gem "json",          "~> 2.6"
+gem "require_all",   "~> 3.0.0"
 
 group :development do
   gem "dotenv",              "~> 2.7.6"
