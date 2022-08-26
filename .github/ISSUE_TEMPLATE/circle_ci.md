@@ -10,8 +10,7 @@ assignees: ""
 
 Provide the following required inputs:
 
-Organization:
-_The Circle CI organization to migrate pipelines from._
+Organization: _The Circle CI organization to migrate pipelines from._
 
 ## Available commands
 
