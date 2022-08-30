@@ -98,19 +98,20 @@ jobs:
           script: |
             const fs = require('fs')
             const summaryText = fs.readFileSync("./audit_summary.md", "utf8")
+            const MAX_LENGTH = 64000
             const artifactUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${process.env.GITHUB_RUN_ID}`
             const body = `Audit successfully completed :rocket:
+
+            Download full results [here](${artifactUrl})
 
             <details>
               <summary>Audit summary :point_down:</summary>
 
               \`\`\`
-              ${summaryText}
+              ${summaryText.substring(0, Math.min(summaryText.length, MAX_LENGTH))}
               \`\`\`
 
             </details>
-
-            Download full results [here](${artifactUrl})
             `
             await github.rest.issues.createComment({
               issue_number: context.issue.number,
@@ -133,11 +134,13 @@ jobs:
             const fs = require('fs')
             const directory = "${{ github.workspace }}/"
             const globber = await glob.create(`${directory}**/*.yml`)
+            const MAX_LENGTH = 64000
+            let currentLength = 0
 
             const workflows = []
             for await (const file of globber.globGenerator()) {
               const content = fs.readFileSync(file, 'utf8')
-              workflows.push(
+              const data = [
                 "<details>",
                 `  <summary>${file.substring(directory.length)}</summary>`,
                 "",
@@ -146,7 +149,17 @@ jobs:
                 "```",
                 "</details>",
                 ""
-              );
+              ]
+              
+              for (const element of data) {
+                currentLength += element.length;
+              }
+              
+              if (currentLength > MAX_LENGTH){
+                break
+              }
+              
+              workflows.push(...data)
             }
 
             const body = `Dry run was successful :boom:
@@ -212,13 +225,15 @@ jobs:
         with:
           script: |
             const fs = require('fs')
+            const MAX_LENGTH = 64000
+            const logData = fs.readFileSync("${{ needs.execute-valet.outputs.log-filename }}", "utf8")
             const body = `Something went wrong. Please check the logs for more information.
 
             <details>
               <summary>Logs :point_down:</summary>
 
               \`\`\` 
-              ${fs.readFileSync("${{ needs.execute-valet.outputs.log-filename }}", "utf8")}
+              ${logData.substring(0, Math.min(logData.length, MAX_LENGTH))}
               \`\`\`
             </details>
             `
