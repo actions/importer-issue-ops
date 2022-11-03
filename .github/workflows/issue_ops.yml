@@ -1,4 +1,4 @@
-name: valet-issue-ops
+name: actions-importer-issue-ops
 
 on:
   issue_comment:
@@ -23,24 +23,24 @@ env:
   CIRCLE_CI_SOURCE_GITHUB_ACCESS_TOKEN: ${{ secrets.circle_ci_source_github_access_token }}
 
 jobs:
-  execute-valet:
+  execute-actions-importer:
     runs-on: ubuntu-latest
     outputs:
       command: ${{ steps.prepare.outputs.command }}
       log-filename: ${{ steps.logs.outputs.filename }}
     steps:
-      - name: Install Valet CLI
+      - name: Install GitHub Actions Importer
         shell: bash
         run: |
-          gh extension install github/gh-valet
-          gh valet update --username ${{ secrets.valet_ghcr_username }} --password ${{ secrets.valet_ghcr_password }}
+          gh extension install github/gh-actions-importer
+          echo ${{ secrets.ghcr_password }} | gh actions-importer update --username ${{ secrets.ghcr_username }} --password-stdin
         env:
-          GITHUB_TOKEN: ${{ secrets.valet_ghcr_password }}
+          GITHUB_TOKEN: ${{ secrets.ghcr_password }}
       - uses: actions-ecosystem/action-add-labels@v1
         if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          labels: valet-running
+          labels: actions-importer-running
       - uses: actions/checkout@v2
       - uses: ruby/setup-ruby@v1
         with:
@@ -55,15 +55,15 @@ jobs:
       - name: Validate arguments
         run: |
           if [ -z "${{ steps.prepare.outputs.provider }}" ]; then
-           echo "Unable to determine provider"
-           exit 1
+            echo "Unable to determine provider"
+            exit 1
           elif [ -z "${{ steps.prepare.outputs.command }}" ]; then
-           echo "Unable to determine command"
-           exit 1
+            echo "Unable to determine command"
+            exit 1
           fi
-      - name: execute valet
+      - name: execute actions-importer
         run: |
-          gh valet ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
+          gh actions-importer ${{ steps.prepare.outputs.command }} ${{ steps.prepare.outputs.provider }} \
             ${{ steps.prepare.outputs.args }} \
             --output-dir output
       - uses: actions/upload-artifact@v2
@@ -86,8 +86,8 @@ jobs:
 
   audit:
     runs-on: ubuntu-latest
-    if: needs.execute-valet.outputs.command == 'audit'
-    needs: execute-valet
+    if: needs.execute-actions-importer.outputs.command == 'audit'
+    needs: execute-actions-importer
     steps:
       - uses: actions/download-artifact@v2
         if: always()
@@ -121,8 +121,8 @@ jobs:
             })
   dry-run:
     runs-on: ubuntu-latest
-    if: needs.execute-valet.outputs.command == 'dry-run'
-    needs: execute-valet
+    if: needs.execute-actions-importer.outputs.command == 'dry-run'
+    needs: execute-actions-importer
     steps:
       - uses: actions/download-artifact@v2
         if: always()
@@ -177,8 +177,8 @@ jobs:
 
   migrate:
     runs-on: ubuntu-latest
-    if: needs.execute-valet.outputs.command == 'migrate'
-    needs: execute-valet
+    if: needs.execute-actions-importer.outputs.command == 'migrate'
+    needs: execute-actions-importer
     steps:
       - uses: actions/download-artifact@v2
         if: always()
@@ -186,7 +186,7 @@ jobs:
           name: logs
       - id: pull-request-url
         run: |
-          pullRequest=$(grep "${{ env.pullRequestPattern }}" ${{ needs.execute-valet.outputs.log-filename }} | sed -rn "s/^.*${{ env.pullRequestPattern }}'(.+)'.*$/\1/p")
+          pullRequest=$(grep "${{ env.pullRequestPattern }}" ${{ needs.execute-actions-importer.outputs.log-filename }} | sed -rn "s/^.*${{ env.pullRequestPattern }}'(.+)'.*$/\1/p")
           echo $pullRequest
           echo ::set-output name=output::$pullRequest
         env:
@@ -213,20 +213,20 @@ jobs:
 
   cleanup:
     runs-on: ubuntu-latest
-    needs: [execute-valet, audit, migrate, dry-run]
+    needs: [execute-actions-importer, audit, migrate, dry-run]
     if: always()
     steps:
       - uses: actions/download-artifact@v2
-        if: always() && needs.execute-valet.result == 'failure'
+        if: always() && needs.execute-actions-importer.result == 'failure'
         with:
           name: logs
       - uses: actions/github-script@v5
-        if: always() && needs.execute-valet.result == 'failure'
+        if: always() && needs.execute-actions-importer.result == 'failure'
         with:
           script: |
             const fs = require('fs')
             const MAX_LENGTH = 64000
-            const logData = fs.readFileSync("${{ needs.execute-valet.outputs.log-filename }}", "utf8")
+            const logData = fs.readFileSync("${{ needs.execute-actions-importer.outputs.log-filename }}", "utf8")
             const body = `Something went wrong. Please check the logs for more information.
 
             <details>
@@ -247,4 +247,4 @@ jobs:
         if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          labels: valet-running
+          labels: actions-importer-running

@@ -1,6 +1,6 @@
 ---
 name: Travis CI
-about: Migrate Travis CI pipelines to GitHub Actions with Valet
+about: Migrate Travis CI pipelines to GitHub Actions
 title: "[Travis CI]:"
 labels: travis-ci
 assignees: ""

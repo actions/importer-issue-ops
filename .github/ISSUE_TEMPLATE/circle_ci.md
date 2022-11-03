@@ -1,7 +1,7 @@
 ---
-name: Circle CI
-about: Migrate Circle CI pipelines to GitHub Actions with Valet
-title: "[Circle CI]:"
+name: CircleCI
+about: Migrate CircleCI pipelines to GitHub Actions
+title: "[CircleCI]:"
 labels: circle-ci
 assignees: ""
 ---
@@ -10,7 +10,7 @@ assignees: ""
 
 Provide the following required inputs:
 
-Organization: _The Circle CI organization to migrate pipelines from._
+Organization: _The CircleCI organization to migrate pipelines from._
 
 ## Available commands
 

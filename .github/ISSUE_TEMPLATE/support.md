@@ -1,6 +1,6 @@
 ---
 name: Request support
-about: Request support or assistance from the Valet team
+about: Request support or assistance
 title: ""
 labels: support
 assignees: ""

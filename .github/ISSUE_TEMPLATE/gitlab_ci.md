@@ -1,7 +1,7 @@
 ---
-name: GitLab CI
-about: Migrate GitLab CI pipelines to GitHub Actions with Valet
-title: "[GitLab CI]:"
+name: GitLab
+about: Migrate GitLab pipelines to GitHub Actions
+title: "[GitLab]:"
 labels: gitlab
 assignees: ""
 ---
@@ -11,7 +11,7 @@ assignees: ""
 Provide the following required inputs:
 
 Namespace:
-_The GitLab CI namespace (or group) to migrate pipelines from._
+_The GitLab namespace (or group) to migrate pipelines from._
 
 ## Available commands
 

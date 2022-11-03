@@ -1,6 +1,6 @@
 ---
 name: Jenkins
-about: Migrate Jenkins jobs to GitHub Actions with Valet
+about: Migrate Jenkins jobs to GitHub Actions
 title: "[Jenkins]:"
 labels: jenkins
 assignees: ""
