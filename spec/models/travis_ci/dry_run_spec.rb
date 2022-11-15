@@ -17,5 +17,11 @@ RSpec.describe TravisCI::DryRun do
 
       it { is_expected.to eq(["--travis-ci-organization", "testing", "--travis-ci-repository", "repo"]) }
     end
+
+    context "when the comment body contains a custom-transformer" do
+      let(:comment_body) { "/dry-run --repository repo --custom-transformers mytransformer.rb" }
+
+      it { is_expected.to match_array(["--travis-ci-organization", "testing", "--travis-ci-repository", "repo", "--custom-transformers", "mytransformer.rb"]) }
+    end
   end
 end

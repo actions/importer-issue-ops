@@ -8,6 +8,7 @@ module GitlabCI
       @namespace = parameter_from_issue("Namespace", issue_content)
       @project = command.options["project"]
       @target_url = command.options["target-url"]
+      @custom_transformers = command.options["custom-transformers"]
     end
 
     def to_a
@@ -15,6 +16,7 @@ module GitlabCI
       args.concat(["--namespace", @namespace]) unless @namespace.nil?
       args.concat(["--project", @project]) unless @project.nil?
       args.concat(["--target-url", @target_url]) unless @target_url.nil?
+      args.concat(["--custom-transformers", @custom_transformers]) unless @custom_transformers.nil?
 
       return args unless args.empty?
     end

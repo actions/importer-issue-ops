@@ -5,6 +5,7 @@ module AzureDevops
     include IssueParser
 
     def initialize(issue_content, command)
+      @custom_transformers = command.options["custom-transformers"]
       @organization = parameter_from_issue("Organization", issue_content)
       @project = parameter_from_issue("Project", issue_content)
 
@@ -17,6 +18,7 @@ module AzureDevops
       args = [@pipeline_type]
       args.concat(["--azure-devops-organization", @organization]) unless @organization.nil?
       args.concat(["--azure-devops-project", @project]) unless @project.nil?
+      args.concat(["--custom-transformers", @custom_transformers]) unless @custom_transformers.nil?
       args.concat(["--pipeline-id", @pipeline_id]) unless @pipeline_id.nil?
       args.concat(["--target-url", @target_url]) unless @target_url.nil?
 

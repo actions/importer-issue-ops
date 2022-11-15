@@ -17,5 +17,11 @@ RSpec.describe CircleCI::DryRun do
 
       it { is_expected.to eq(["--circle-ci-organization", "testing", "--circle-ci-project", "repo"]) }
     end
+
+    context "when the comment body contains a custom-transformer" do
+      let(:comment_body) { "/dry-run --project repo --custom-transformers mytransformer.rb" }
+
+      it { is_expected.to match_array(["--circle-ci-organization", "testing", "--circle-ci-project", "repo", "--custom-transformers", "mytransformer.rb"]) }
+    end
   end
 end

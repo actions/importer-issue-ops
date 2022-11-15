@@ -14,7 +14,7 @@ The GitHub Actions Importer IssueOps repository demonstrates the functionality n
 
 Complete the following steps:
 
-1. Create a new repository using this repository as the template by clicking [here](https://github.com/actions/importer-issue-ops/generate). 
+1. Create a new repository using this repository as the template by clicking [here](https://github.com/actions/importer-issue-ops/generate).
 2. Create the following labels in this new repository: `jenkins`, `azure-devops`, `circle-ci`, `gitlab`, `travis-ci`, and `actions-importer-running`.
 3. Add the repository secrets described below that are relevant to the CI/CD providers being migrated:
 
@@ -94,6 +94,16 @@ Optionally, the following environment variables can be set:
 ## Pipeline migration
 
 Once configured, pipelines can be migrated to GitHub Actions by opening an issue with the relevant issue template and following the instructions.
+
+### Custom Transformers
+
+Provided in this repository is an example [transformers.rb](./transformers.rb) which can be used in combination with `dry-run` and `migrate` actions to provide extensibility for customizing transformations from imported pipeline configurations.
+
+Example usage with Jenkins:
+
+```sh
+/dry-run --source-url :jenkins-job-url --custom-transformers transformers.rb
+```
 
 ## Privacy statement
 

@@ -17,5 +17,11 @@ RSpec.describe GitlabCI::Migrate do
 
       it { is_expected.to eq(["--namespace", "testing", "--project", "project", "--target-url", "https://github.com/org/repo"]) }
     end
+
+    context "when the comment body contains a custom-transformer" do
+      let(:comment_body) { "/migrate --project project --custom-transformers mytransformer.rb" }
+
+      it { is_expected.to match_array(["--namespace", "testing", "--project", "project", "--custom-transformers", "mytransformer.rb"]) }
+    end
   end
 end

@@ -24,5 +24,11 @@ RSpec.describe AzureDevops::Migrate do
 
       it { is_expected.to eq(["pipeline", "--azure-devops-organization", "my-organization", "--azure-devops-project", "my-project", "--pipeline-id", "42", "--target-url", "https://github.com/org/repo"]) }
     end
+
+    context "when the comment body contains a custom-transformer" do
+      let(:comment_body) { "/migrate --custom-transformers mytransformer.rb" }
+
+      it { is_expected.to match_array(["pipeline", "--azure-devops-organization", "my-organization", "--azure-devops-project", "my-project", "--custom-transformers", "mytransformer.rb"]) }
+    end
   end
 end

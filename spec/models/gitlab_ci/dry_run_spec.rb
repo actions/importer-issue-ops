@@ -17,5 +17,11 @@ RSpec.describe GitlabCI::DryRun do
 
       it { is_expected.to eq(["--namespace", "testing", "--project", "project"]) }
     end
+
+    context "when the comment body contains a custom-transformer" do
+      let(:comment_body) { "/dry-run --project project --custom-transformers mytransformer.rb" }
+
+      it { is_expected.to match_array(["--namespace", "testing", "--project", "project", "--custom-transformers", "mytransformer.rb"]) }
+    end
   end
 end
