@@ -18,10 +18,24 @@ RSpec.describe GitlabCI::Migrate do
       it { is_expected.to eq(["--namespace", "testing", "--project", "project", "--target-url", "https://github.com/org/repo"]) }
     end
 
-    context "when the comment body contains a custom-transformer" do
+    context "when the comment body contains a custom-transformer then it should be used and glob results ignored" do
+      before do
+        allow(Dir).to receive(:glob).and_return(["transformers/transformer1.rb", "transformers/transformer2.rb"])
+      end
+
       let(:comment_body) { "/migrate --project project --custom-transformers mytransformer.rb" }
 
       it { is_expected.to match_array(["--namespace", "testing", "--project", "project", "--custom-transformers", "mytransformer.rb"]) }
+    end
+
+    context "when there are transformer files present" do
+      before do
+        allow(Dir).to receive(:glob).and_return(["transformers/transformer1.rb", "transformers/transformer2.rb"])
+      end
+
+      let(:comment_body) { "/migrate --project project" }
+
+      it { is_expected.to match_array(["--namespace", "testing", "--project", "project", "--custom-transformers", "transformers/transformer1.rb transformers/transformer2.rb"]) }
     end
   end
 end

@@ -5,7 +5,7 @@ module CircleCI
     include IssueParser
 
     def initialize(issue_content, command)
-      @custom_transformers = command.options["custom-transformers"]
+      @custom_transformers = command.options["custom-transformers"] || Dir.glob("transformers/**/*.rb").join(" ")
       @organization = parameter_from_issue("Organization", issue_content)
       @project = command.options["project"]
       @target_url = command.options["target-url"]
@@ -15,7 +15,7 @@ module CircleCI
       args = []
       args.concat(["--circle-ci-organization", @organization]) unless @organization.nil?
       args.concat(["--circle-ci-project", @project]) unless @project.nil?
-      args.concat(["--custom-transformers", @custom_transformers]) unless @custom_transformers.nil?
+      args.concat(["--custom-transformers", @custom_transformers]) if @custom_transformers.length.positive?
       args.concat(["--target-url", @target_url]) unless @target_url.nil?
 
       return args unless args.empty?

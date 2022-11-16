@@ -19,9 +19,23 @@ RSpec.describe GitlabCI::DryRun do
     end
 
     context "when the comment body contains a custom-transformer" do
+      before do
+        allow(Dir).to receive(:glob).and_return(["transformers/transformer1.rb", "transformers/transformer2.rb"])
+      end
+
       let(:comment_body) { "/dry-run --project project --custom-transformers mytransformer.rb" }
 
       it { is_expected.to match_array(["--namespace", "testing", "--project", "project", "--custom-transformers", "mytransformer.rb"]) }
+    end
+
+    context "when there are transformer files present" do
+      before do
+        allow(Dir).to receive(:glob).and_return(["transformers/transformer1.rb", "transformers/transformer2.rb"])
+      end
+
+      let(:comment_body) { "/dry-run --project project" }
+
+      it { is_expected.to match_array(["--namespace", "testing", "--project", "project", "--custom-transformers", "transformers/transformer1.rb transformers/transformer2.rb"]) }
     end
   end
 end

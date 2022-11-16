@@ -97,13 +97,7 @@ Once configured, pipelines can be migrated to GitHub Actions by opening an issue
 
 ### Custom Transformers
 
-Provided in this repository is an example [transformers.rb](./transformers.rb) which can be used in combination with `dry-run` and `migrate` actions to provide extensibility for customizing transformations from imported pipeline configurations.
-
-Example usage with Jenkins:
-
-```sh
-/dry-run --source-url :jenkins-job-url --custom-transformers transformers.rb
-```
+See [./transformers/README.md](./transformers/README.md) for details on using custom transformers for `dry-run` and `migrate` commands.
 
 ## Privacy statement
 

@@ -26,9 +26,23 @@ RSpec.describe AzureDevops::Migrate do
     end
 
     context "when the comment body contains a custom-transformer" do
+      before do
+        allow(Dir).to receive(:glob).and_return(["transformers/transformer1.rb", "transformers/transformer2.rb"])
+      end
+
       let(:comment_body) { "/migrate --custom-transformers mytransformer.rb" }
 
       it { is_expected.to match_array(["pipeline", "--azure-devops-organization", "my-organization", "--azure-devops-project", "my-project", "--custom-transformers", "mytransformer.rb"]) }
+    end
+
+    context "when there are transformer files present" do
+      before do
+        allow(Dir).to receive(:glob).and_return(["transformers/transformer1.rb", "transformers/transformer2.rb"])
+      end
+
+      let(:comment_body) { "/migrate" }
+
+      it { is_expected.to match_array(["pipeline", "--azure-devops-organization", "my-organization", "--azure-devops-project", "my-project", "--custom-transformers", "transformers/transformer1.rb transformers/transformer2.rb"]) }
     end
   end
 end
