@@ -31,7 +31,7 @@ RSpec.describe Arguments do
 
   describe "#to_output" do
     subject { arguments.to_output }
-    
+
     let(:options) { {} }
 
     before do
