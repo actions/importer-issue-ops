@@ -13,6 +13,7 @@ RSpec.describe Arguments do
       before do
         expect(provider).to receive(:module).and_return(::Jenkins).at_least(:once)
         expect(command).to receive(:classify).and_return("Audit").at_least(:once)
+        expect(command).to receive(:options).and_return({})
       end
 
       it { is_expected.to be_a(::Jenkins::Audit) }
@@ -30,10 +31,13 @@ RSpec.describe Arguments do
 
   describe "#to_output" do
     subject { arguments.to_output }
+    
+    let(:options) { {} }
 
     before do
       expect(provider).to receive(:module).and_return(::AzureDevops).at_least(:once)
       expect(command).to receive(:classify).and_return("Audit").at_least(:once)
+      expect(command).to receive(:options).and_return(options)
       expect_any_instance_of(::AzureDevops::Audit).to receive(:to_a).and_return(output)
     end
 
@@ -60,6 +64,30 @@ RSpec.describe Arguments do
 
       it "writes an output variable" do
         expect(arguments).to receive(:set_output).with("args", "--option \"some value\"")
+        subject
+      end
+    end
+
+    context "when there is a custom transformers option" do
+      let(:output) { ["--option", "value"] }
+      let(:options) { { "custom-transformers" => "transformers/**/*.rb" } }
+
+      it "writes an output variable" do
+        expect(arguments).to receive(:set_output).with("args", "--option value --custom-transformers transformers/**/*.rb")
+        subject
+      end
+    end
+
+    context "when there are custom transformers in the repository" do
+      let(:output) { ["--option", "value"] }
+      let(:files) { ["transformers/jenkins/transformers.rb", "transformers/all.rb"] }
+
+      before do
+        expect(Dir).to receive(:glob).with("transformers/**/*.rb").and_return(files)
+      end
+
+      it "writes an output variable" do
+        expect(arguments).to receive(:set_output).with("args", "--option value --custom-transformers transformers/jenkins/transformers.rb transformers/all.rb")
         subject
       end
     end
