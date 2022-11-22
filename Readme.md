@@ -97,8 +97,6 @@ Once configured, pipelines can be migrated to GitHub Actions by opening an issue
 
 ### Custom transformers
 
-See [./transformers/README.md](./transformers/README.md) for details on using custom transformers for `dry-run` and `migrate` commands.
-
 Custom transformers can be used to customize the behavior of Actions Importer to meet your specific use-case. Custom transformers can be used to:
 
 - Convert items that are not automatically converted.
