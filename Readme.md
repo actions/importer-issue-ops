@@ -15,7 +15,7 @@ The GitHub Actions Importer IssueOps repository demonstrates the functionality n
 Complete the following steps:
 
 1. Create a new repository using this repository as the template by clicking [here](https://github.com/actions/importer-issue-ops/generate).
-2. Create the following labels in this new repository: `jenkins`, `azure-devops`, `circle-ci`, `gitlab`, `travis-ci`, and `actions-importer-running`.  **Note**: This step should typically automatically complete upon repo creation from this template using the [template-deploy.yml](./github/../.github/workflows/template-deploy.yml) workflow but will need to be performed manually if this action fails or is unable to run at deploy time.
+2. Create the following labels in this new repository, if they are not already present: `jenkins`, `azure-devops`, `circle-ci`, `gitlab`, `travis-ci`, and `actions-importer-running`.
 3. Add the repository secrets described below that are relevant to the CI/CD providers being migrated:
 
 ### All CI/CD providers
