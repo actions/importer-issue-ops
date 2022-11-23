@@ -1,0 +1,40 @@
+# This workflow contains steps which execute when template is converted to a repository
+
+name: template-deploy
+
+on:
+  create:
+    ref: main
+    ref_type: branch
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  # Add issue labels expected by the repository
+  add-repo-labels:
+    if: ${{ !github.event.repository.is_template }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            let labels = [
+              'jenkins',
+              'azure-devops',
+              'circle-ci',
+              'gitlab',
+              'travis-ci',
+              'actions-importer-running'
+            ];
+
+            labels.forEach( (label) => {
+              github.rest.issues.createLabel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: label,
+                color: '00FFFF',
+                description: 'Label used by Issue Ops workflow.'
+              });
+            });
