@@ -21,38 +21,20 @@ jobs:
         with:
           script: |
             let labels = [
-              {
-                name: 'jenkins',
-                color: '00FFFF',
-              },
-              {
-                name: 'azure-devops',
-                color: '00FFFF',
-              },
-              {
-                name: 'circle-ci',
-                color: '00FFFF',
-              },
-              {
-                name: 'gitlab',
-                color: '00FFFF',
-              },
-              {
-                name: 'travis-ci',
-                color: '00FFFF',
-              },
-              {
-                name: 'actions-importer-running',
-                color: '00FFFF',
-              }
+              'jenkins',
+              'azure-devops',
+              'circle-ci',
+              'gitlab',
+              'travis-ci',
+              'actions-importer-running'
             ];
 
             labels.forEach( (label) => {
               github.rest.issues.createLabel({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                name: label.name,
-                color: label.color,
+                name: label,
+                color: '00FFFF',
                 description: 'Label used by Issue Ops workflow.'
               });
             });
