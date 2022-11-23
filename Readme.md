@@ -14,7 +14,7 @@ The GitHub Actions Importer IssueOps repository demonstrates the functionality n
 
 Complete the following steps:
 
-1. Create a new repository using this repository as the template by clicking [here](https://github.com/actions/importer-issue-ops/generate). 
+1. Create a new repository using this repository as the template by clicking [here](https://github.com/actions/importer-issue-ops/generate).
 2. Create the following labels in this new repository: `jenkins`, `azure-devops`, `circle-ci`, `gitlab`, `travis-ci`, and `actions-importer-running`.
 3. Add the repository secrets described below that are relevant to the CI/CD providers being migrated:
 
@@ -94,6 +94,30 @@ Optionally, the following environment variables can be set:
 ## Pipeline migration
 
 Once configured, pipelines can be migrated to GitHub Actions by opening an issue with the relevant issue template and following the instructions.
+
+### Custom transformers
+
+Custom transformers can be used to customize the behavior of Actions Importer to meet your specific use-case. Custom transformers can be used to:
+
+- Convert items that are not automatically converted.
+- Convert items that were automatically converted using different actions.
+- Convert environment variable values differently.
+- Convert references to runners to use a different runner name in Actions.
+
+Custom transformers must be defined in a file with the `.rb` file extension within a directory named `transformers` in your IssueOps repository. Alternatively, you can provide specific custom transformers to be used by appending the `--custom-transformers` option in the issue comment used to trigger Actions Importer. For example:
+
+```
+/migrate ... --custom-transformers my-transformers.rb
+```
+
+You can learn more about authoring custom transformers by completing the self-guided learning exercises below:
+
+- Custom transformers for Azure DevOps pipelines [exercise](https://github.com/actions/importer-labs/blob/main/azure_devops/5-custom-transformers.md)
+- Custom transformers for CircleCI pipelines [exercise](https://github.com/actions/importer-labs/blob/main/circle_ci/5-custom-transformers.md)
+- Custom transformers for GitLab pipelines [exercise](https://github.com/actions/importer-labs/blob/main/gitlab/5-custom-transformers.md)
+- Custom transformers for Jenkins pipelines [exercise](https://github.com/actions/importer-labs/blob/main/jenkins/5-custom-transformers.md)
+- Custom transformers for Travis CI pipelines [exercise](https://github.com/actions/importer-labs/blob/main/travis/5-custom-transformers.md)
+
 
 ## Privacy statement
 
