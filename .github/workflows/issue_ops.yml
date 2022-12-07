@@ -45,7 +45,7 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.7.1
-        # When using Self-Hosted Runner configurations, ImageOs must be populated to match the OS of the runner
+        # ImageOs must be configured to match the OS of the runner when using self-hosted runners.
         # env:
         #     ImageOS: ubuntu22
       - name: Install dependencies

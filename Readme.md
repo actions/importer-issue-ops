@@ -118,13 +118,13 @@ You can learn more about authoring custom transformers by completing the self-gu
 - Custom transformers for Jenkins pipelines [exercise](https://github.com/actions/importer-labs/blob/main/jenkins/5-custom-transformers.md)
 - Custom transformers for Travis CI pipelines [exercise](https://github.com/actions/importer-labs/blob/main/travis/5-custom-transformers.md)
 
-## GitHub Enterprise Server and Self-Hosted Runner Support
+## Configuring IssueOps with GitHub Enterprise Server and self-hosted runners
 
-This template can be used with GitHub Enterprise Server deployments or with Self-Hosted runners with additional considerations.
+This template can be configured to be used with GitHub Enterprise Server deployments and self-hosted runners by:
 
-1. See `Using self-hosted runners` details for action [ruby/setup-ruby](https://github.com/ruby/setup-ruby) to verify supported runner OS types and configuration prerequisites.
-2. Labels for `runs-on:` for [workflow files](.github/workflows/) must be updated to match an available label for Self-Hosted Runners
-3. For GitHub Enterprise Server deployments, this repository should be published and [converted to a template repository](https://docs.github.com/en/enterprise-server/repositories/creating-and-managing-repositories/creating-a-template-repository).
+1. Updating the [ruby/setup-ruby](https://github.com/ruby/setup-ruby) actions in [issue_ops.yml](./.github/workflows/issue_ops.yml) and [ci.yml](./.github/workflows/ci.yml) to ensure the action runs on the correct OS type.
+2. Updating the `runs-on:` statements in [ruby/setup-ruby](https://github.com/ruby/setup-ruby) actions in [issue_ops.yml](./.github/workflows/issue_ops.yml) to dictate the appropriate label(s) for your self-hosted runner.
+3. For GitHub Enterprise Server deployments, this repository should be published and [converted to a template repository](https://docs.github.com/en/enterprise-server/repositories/creating-and-managing-repositories/creating-a-template-repository) in your GHES deployment.
 
 ## Privacy statement
 

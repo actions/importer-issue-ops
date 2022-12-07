@@ -7,7 +7,7 @@ on:
 
 env:
   ruby_version: 2.7.1
-  # When using Self-Hosted Runner configurations, ImageOs must be populated to match the OS of the runner
+  # ImageOs must be configured to match the OS of the runner when using self-hosted runners.
   # ImageOS: ubuntu22
 
 jobs:
