@@ -106,7 +106,7 @@ Custom transformers can be used to customize the behavior of Actions Importer to
 
 Custom transformers must be defined in a file with the `.rb` file extension within a directory named `transformers` in your IssueOps repository. Alternatively, you can provide specific custom transformers to be used by appending the `--custom-transformers` option in the issue comment used to trigger Actions Importer. For example:
 
-```
+```sh
 /migrate ... --custom-transformers my-transformers.rb
 ```
 
@@ -118,6 +118,13 @@ You can learn more about authoring custom transformers by completing the self-gu
 - Custom transformers for Jenkins pipelines [exercise](https://github.com/actions/importer-labs/blob/main/jenkins/5-custom-transformers.md)
 - Custom transformers for Travis CI pipelines [exercise](https://github.com/actions/importer-labs/blob/main/travis/5-custom-transformers.md)
 
+## Configuring IssueOps with GitHub Enterprise Server and self-hosted runners
+
+This template can be configured to be used with GitHub Enterprise Server deployments and self-hosted runners by:
+
+1. Updating the [ruby/setup-ruby](https://github.com/ruby/setup-ruby) actions in [issue_ops.yml](./.github/workflows/issue_ops.yml) and [ci.yml](./.github/workflows/ci.yml) to ensure the action runs on the correct OS type.
+2. Updating the `runs-on:` statements in [ruby/setup-ruby](https://github.com/ruby/setup-ruby) actions in [issue_ops.yml](./.github/workflows/issue_ops.yml) to dictate the appropriate label(s) for your self-hosted runner.
+3. For GitHub Enterprise Server deployments, this repository should be published and [converted to a template repository](https://docs.github.com/en/enterprise-server/repositories/creating-and-managing-repositories/creating-a-template-repository) in your GHES deployment.
 
 ## Privacy statement
 
