@@ -106,7 +106,7 @@ Custom transformers can be used to customize the behavior of Actions Importer to
 
 Custom transformers must be defined in a file with the `.rb` file extension within a directory named `transformers` in your IssueOps repository. Alternatively, you can provide specific custom transformers to be used by appending the `--custom-transformers` option in the issue comment used to trigger Actions Importer. For example:
 
-```
+```sh
 /migrate ... --custom-transformers my-transformers.rb
 ```
 
@@ -118,6 +118,13 @@ You can learn more about authoring custom transformers by completing the self-gu
 - Custom transformers for Jenkins pipelines [exercise](https://github.com/actions/importer-labs/blob/main/jenkins/5-custom-transformers.md)
 - Custom transformers for Travis CI pipelines [exercise](https://github.com/actions/importer-labs/blob/main/travis/5-custom-transformers.md)
 
+## GitHub Enterprise Server and Self-Hosted Runner Support
+
+This template can be used with GitHub Enterprise Server deployments or with Self-Hosted runners with additional considerations.
+
+1. See `Using self-hosted runners` details for action [ruby/setup-ruby](https://github.com/ruby/setup-ruby) to verify supported runner OS types and configuration prerequisites.
+2. Labels for `runs-on:` for [workflow files](.github/workflows/) must be updated to match an available label for Self-Hosted Runners
+3. For GitHub Enterprise Server deployments, this repository should be published and [converted to a template repository](https://docs.github.com/en/enterprise-server/repositories/creating-and-managing-repositories/creating-a-template-repository).
 
 ## Privacy statement
 

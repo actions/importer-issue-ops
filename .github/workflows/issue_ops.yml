@@ -45,6 +45,9 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.7.1
+        # When using Self-Hosted Runner configurations, ImageOs must be populated to match the OS of the runner
+        # env:
+        #     ImageOS: ubuntu22
       - name: Install dependencies
         run: bundle install --without development
       - name: Prepare arguments
@@ -150,15 +153,15 @@ jobs:
                 "</details>",
                 ""
               ]
-              
+
               for (const element of data) {
                 currentLength += element.length;
               }
-              
+
               if (currentLength > MAX_LENGTH){
                 break
               }
-              
+
               workflows.push(...data)
             }
 
@@ -232,7 +235,7 @@ jobs:
             <details>
               <summary>Logs :point_down:</summary>
 
-              \`\`\` 
+              \`\`\`
               ${logData.substring(0, Math.min(logData.length, MAX_LENGTH))}
               \`\`\`
             </details>
