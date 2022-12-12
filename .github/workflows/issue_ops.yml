@@ -32,10 +32,11 @@ jobs:
       - name: Install GitHub Actions Importer
         shell: bash
         run: |
-          gh extension install github/gh-actions-importer
+          gh actions-importer version || gh extension install github/gh-actions-importer
           echo ${{ secrets.ghcr_password }} | gh actions-importer update --username ${{ secrets.ghcr_username }} --password-stdin
         env:
           GITHUB_TOKEN: ${{ secrets.ghcr_password }}
+          GH_TOKEN: ${{ secrets.ghcr_password }}
       - uses: actions-ecosystem/action-add-labels@v1
         if: always()
         with:
