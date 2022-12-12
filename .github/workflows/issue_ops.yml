@@ -37,11 +37,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.ghcr_password }}
           GH_TOKEN: ${{ secrets.ghcr_password }}
-      - uses: actions-ecosystem/action-add-labels@v1
+      - uses: actions/github-script@v6
         if: always()
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          labels: actions-importer-running
+          script: |
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['actions-importer-running']
+            })
       - uses: actions/checkout@v2
       - uses: ruby/setup-ruby@v1
         with:
@@ -97,7 +102,7 @@ jobs:
         if: always()
         with:
           name: output
-      - uses: actions/github-script@v5
+      - uses: actions/github-script@v6
         with:
           script: |
             const fs = require('fs')
@@ -132,7 +137,7 @@ jobs:
         if: always()
         with:
           name: output
-      - uses: actions/github-script@v5
+      - uses: actions/github-script@v6
         with:
           script: |
             const fs = require('fs')
@@ -195,7 +200,7 @@ jobs:
           echo ::set-output name=output::$pullRequest
         env:
           pullRequestPattern: "Pull request: "
-      - uses: actions/github-script@v5
+      - uses: actions/github-script@v6
         env:
           PULL_REQUEST_URL: "${{ steps.pull-request-url.outputs.output }}"
         with:
@@ -224,7 +229,7 @@ jobs:
         if: always() && needs.execute-actions-importer.result == 'failure'
         with:
           name: logs
-      - uses: actions/github-script@v5
+      - uses: actions/github-script@v6
         if: always() && needs.execute-actions-importer.result == 'failure'
         with:
           script: |
@@ -247,8 +252,13 @@ jobs:
               repo: context.repo.repo,
               body
             })
-      - uses: actions-ecosystem/action-remove-labels@v1
+      - uses: actions/github-script@v6
         if: always()
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          labels: actions-importer-running
+          script: |
+            await github.rest.issues.removeLabel({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              name: 'actions-importer-running'
+            });
