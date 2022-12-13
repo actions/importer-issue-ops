@@ -58,9 +58,12 @@ jobs:
         run: bundle install --without development
       - name: Prepare arguments
         id: prepare
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          COMMENT_BODY: ${{ github.event.comment.body }}
+          LABELS: ${{ toJSON(github.event.issue.labels.*.name) }}
         run: |
-          echo "${{ toJSON(github.event.issue.labels.*.name) }}"
-          ./bin/parse_issue "${{ github.event.issue.body }}" "${{ github.event.comment.body }}" "${{ toJSON(github.event.issue.labels.*.name) }}"
+          ./bin/parse_issue "${{ env.ISSUE_BODY }}" "${{ env.COMMENT_BODY }}" "${{ env.LABELS }}"
       - name: Validate arguments
         run: |
           if [ -z "${{ steps.prepare.outputs.provider }}" ]; then
