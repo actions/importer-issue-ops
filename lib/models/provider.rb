@@ -18,8 +18,7 @@ class Provider
   }.freeze
 
   def initialize(labels)
-    labels = labels.tr("\n", "").delete_prefix("[").delete_suffix("]").split(",").map(&:strip)
-    providers = labels.select { |label| PROVIDER_MAP.key?(label) }
+    providers = JSON.parse(labels).select { |label| PROVIDER_MAP.key?(label) }
 
     raise "One provider must be selected" if providers.empty?
     raise "Only one provider can be selected" unless providers.one?
