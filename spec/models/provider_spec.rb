@@ -20,8 +20,8 @@ RSpec.describe Provider do
       let(:labels) do
         <<~LABELS
           [
-            jenkins,
-            azure-devops
+            "jenkins",
+            "azure-devops"
           ]
         LABELS
       end
@@ -33,7 +33,7 @@ RSpec.describe Provider do
       let(:labels) do
         <<~LABELS
           [
-            something-unsupported
+            "something-unsupported"
           ]
         LABELS
       end
@@ -45,7 +45,7 @@ RSpec.describe Provider do
       let(:labels) do
         <<~LABELS
           [
-            jenkins
+            "jenkins"
           ]
         LABELS
       end
@@ -59,7 +59,7 @@ RSpec.describe Provider do
     let(:labels) do
       <<~LABELS
         [
-          gitlab
+          "gitlab"
         ]
       LABELS
     end
@@ -73,7 +73,7 @@ RSpec.describe Provider do
     let(:labels) do
       <<~LABELS
         [
-          travis-ci
+          "travis-ci"
         ]
       LABELS
     end
@@ -87,7 +87,7 @@ RSpec.describe Provider do
     let(:labels) do
       <<~LABELS
         [
-          azure-devops
+          "azure-devops"
         ]
       LABELS
     end
