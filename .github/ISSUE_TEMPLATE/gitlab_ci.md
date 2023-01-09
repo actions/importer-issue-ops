@@ -8,10 +8,9 @@ assignees: ""
 
 ## Inputs
 
-Provide the following required inputs:
+Provide the following **required** inputs:
 
-Namespace:
-_The GitLab namespace (or group) to migrate pipelines from._
+Namespace: **Replace this text with the GitLab namespace (or group) to migrate pipelines from.**
 
 ## Available commands
 
