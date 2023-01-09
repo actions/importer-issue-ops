@@ -19,6 +19,7 @@ env:
   TRAVIS_CI_ACCESS_TOKEN: ${{ secrets.travis_ci_access_token }}
   TRAVIS_CI_SOURCE_GITHUB_ACCESS_TOKEN: ${{ secrets.travis_ci_source_github_access_token }}
   GITLAB_ACCESS_TOKEN: ${{ secrets.gitlab_access_token }}
+  GITLAB_INSTANCE_URL: ${{ secrets.gitlab_instance_url || 'https://gitlab.com' }}
   CIRCLE_CI_ACCESS_TOKEN: ${{ secrets.circle_ci_access_token }}
   CIRCLE_CI_SOURCE_GITHUB_ACCESS_TOKEN: ${{ secrets.circle_ci_source_github_access_token }}
 
