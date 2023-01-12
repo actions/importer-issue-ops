@@ -10,8 +10,7 @@ assignees: ""
 
 Provide the following required inputs:
 
-Organization:
-_The Travis CI organization to migrate pipelines from._
+Organization: _Replace this text  with the Travis CI organization to migrate pipelines from._
 
 ## Available commands
 
