@@ -10,8 +10,7 @@ assignees: ""
 
 Provide the following optional inputs:
 
-Folders:
-_Include specific folders in an audit_
+Folders: _Include specific folders in an audit (delete if not applicable)_
 
 ## Available commands
 

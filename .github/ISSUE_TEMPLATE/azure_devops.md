@@ -10,11 +10,8 @@ assignees: ""
 
 Provide the following required inputs:
 
-Organization:
-_The Azure DevOps organization to migrate pipelines from._
-
-Project:
-_The Azure DevOps project to migrate pipelines from._
+Organization: _Replace this text with the Azure DevOps organization to migrate pipelines from._
+Project: _Replace this text with the Azure DevOps project to migrate pipelines from._
 
 ## Available commands
 
