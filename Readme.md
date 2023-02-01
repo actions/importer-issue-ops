@@ -18,16 +18,16 @@ Complete the following steps:
 2. Create the following labels in this new repository, if they are not already present: `jenkins`, `azure-devops`, `circle-ci`, `gitlab`, `travis-ci`, and `actions-importer-running`.
 3. Add the repository secrets described below that are relevant to the CI/CD providers being migrated.
 
-### Actions Permissions
+### Repository settings
 
-Actions permissions for the created repository, will need one of the following settings:
+The repository that is created from this template must have one of the following settings enabled:
 
-- Allow all actions and reusable workflows
-- Allow enterprise, and select non-enterprise, actions and reusable workflows
+- Any action or reusable workflow can be used, regardless of who authored it or where it is defined.
+- Any action or reusable workflow that matches the specified criteria, plus those defined in a repository within the enterprise, can be used.
    - Allow actions created by GitHub 
-   - Allow actions by Marketplace OR add `ruby/setup-ruby@v1` in Allow specified actions and reusable workflows list.
+   - Allow actions by marketplace verified creators or icnlude `ruby/setup-ruby@v1` in the allowed list of actions and reusable workflows.
 
-See [Managing GitHub Actions permissions for your repository](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository#managing-github-actions-permissions-for-your-repository) for more information.
+See the [documentation](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository#managing-github-actions-permissions-for-your-repository) for more information related to these settings.
 
 ### All CI/CD providers
 
