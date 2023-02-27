@@ -90,7 +90,7 @@ jobs:
           path=$(ls output/log/*.log | head -1)
           filename=$(basename "$path")
           echo "LOG_FILE_PATH=$path" >> $GITHUB_ENV
-          echo "::set-output name=filename::$filename"
+          echo "filename=$filename" >> $GITHUB_OUTPUT
       - uses: actions/upload-artifact@v2
         if: always()
         with:
@@ -201,7 +201,7 @@ jobs:
         run: |
           pullRequest=$(grep "${{ env.pullRequestPattern }}" ${{ needs.execute-actions-importer.outputs.log-filename }} | sed -rn "s/^.*${{ env.pullRequestPattern }}'(.+)'.*$/\1/p")
           echo $pullRequest
-          echo ::set-output name=output::$pullRequest
+          echo "output=$pullRequest" >> $GITHUB_OUTPUT
         env:
           pullRequestPattern: "Pull request: "
       - uses: actions/github-script@v6
