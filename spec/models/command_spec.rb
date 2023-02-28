@@ -104,6 +104,6 @@ RSpec.describe Command do
       COMMENT
     end
 
-    it { expect { subject }.to output(/::set-output name=command::audit/).to_stdout }
+    it { expect { subject }.to change { File.readlines(ENV["GITHUB_OUTPUT"], chomp: true).last }.to("command=audit") }
   end
 end

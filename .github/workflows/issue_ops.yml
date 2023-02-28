@@ -48,7 +48,7 @@ jobs:
               repo: context.repo.repo,
               labels: ['actions-importer-running']
             })
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.7.1

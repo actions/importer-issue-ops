@@ -4,6 +4,8 @@ module OutputWriter
   def set_output(name, value)
     return if value.nil?
 
-    puts "::set-output name=#{name}::#{value}"
+    File.open(ENV["GITHUB_OUTPUT"], "a") do |f|
+      f.puts "#{name}=#{value}"
+    end
   end
 end

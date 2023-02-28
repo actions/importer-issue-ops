@@ -52,6 +52,12 @@ RSpec.describe Provider do
 
       it { expect { subject }.not_to raise_error }
     end
+
+    context "when a provider is a quoted string" do
+      let(:labels) { "[ \"jenkins\" ]" }
+
+      it { expect { subject }.not_to raise_error }
+    end
   end
 
   describe "#cli_command" do
@@ -92,6 +98,6 @@ RSpec.describe Provider do
       LABELS
     end
 
-    it { expect { subject }.to output(/::set-output name=provider::azure-devops/).to_stdout }
+    it { expect { subject }.to change { File.readlines(ENV["GITHUB_OUTPUT"], chomp: true).last }.to("provider=azure-devops") }
   end
 end
