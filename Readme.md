@@ -8,8 +8,6 @@ The GitHub Actions Importer IssueOps repository demonstrates the functionality n
 - `dry-run`: A dry run will fetch a single pipeline definition, convert it to its equivalent in GitHub Actions, and write a file (or files) to disk containing the converted workflow.
 - `migrate`: A migration will fetch a single pipeline definition, convert it to its equivalent in GitHub Actions, and open a pull request to a repository with the converted workflow.
 
-> **Note**: GitHub Actions Importer is currently available as a public preview. Visit the [sign up page](https://github.com/features/actions-importer/signup) to request access to the preview.
-
 ## Getting started
 
 Complete the following steps:
@@ -33,8 +31,6 @@ See the [documentation](https://docs.github.com/en/repositories/managing-your-re
 
 The following secrets are required:
 
-- `GHCR_USERNAME`: The username to access the GitHub Actions Importer container.
-- `GHCR_PASSWORD`: The password to access the GitHub Actions Importer container (requires `read:packages` scope).
 - `GH_ACCESS_TOKEN`: GitHub personal access token to create pull requests (requires `repo` and `workflow` scopes).
 
 Optionally, the following environment variables can be set:

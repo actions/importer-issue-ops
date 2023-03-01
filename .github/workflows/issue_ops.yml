@@ -34,9 +34,8 @@ jobs:
         shell: bash
         run: |
           gh actions-importer version || gh extension install github/gh-actions-importer
-          echo ${{ secrets.ghcr_password }} | gh actions-importer update --username ${{ secrets.ghcr_username }} --password-stdin
+          gh actions-importer update
         env:
-          GITHUB_TOKEN: ${{ secrets.ghcr_password }}
           GH_TOKEN: ${{ secrets.ghcr_password }}
       - uses: actions/github-script@v6
         if: always()
