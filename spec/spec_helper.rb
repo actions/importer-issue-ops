@@ -3,6 +3,7 @@
 require "bundler/setup"
 require "factory_bot"
 require "faker"
+require "fileutils"
 
 require_relative "./../cli"
 
@@ -25,5 +26,12 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     FactoryBot.find_definitions
+    Dir.mkdir("tmp") unless Dir.exist?("tmp")
+    FileUtils.touch "tmp/test.txt"
+    ENV["GITHUB_OUTPUT"] = "tmp/test.txt"
+  end
+
+  config.after(:suite) do
+    File.delete("tmp/test.txt")
   end
 end
