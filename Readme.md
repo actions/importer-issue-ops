@@ -31,8 +31,6 @@ See the [documentation](https://docs.github.com/en/repositories/managing-your-re
 
 The following secrets are required:
 
-- `GHCR_USERNAME`: The username to access the GitHub Actions Importer container.
-- `GHCR_PASSWORD`: The password to access the GitHub Actions Importer container (requires `read:packages` scope).
 - `GH_ACCESS_TOKEN`: GitHub personal access token to create pull requests (requires `repo` and `workflow` scopes).
 
 Optionally, the following environment variables can be set:
