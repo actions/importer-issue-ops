@@ -11,7 +11,7 @@ permissions:
 env:
   GITHUB_INSTANCE_URL: ${{ secrets.GITHUB_INSTANCE_URL || 'https://github.com' }}
   GITHUB_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
-  JENKINS_INSTANCE_URL: ${{ vars.JENKINS_INSTANCE_URL }}
+  JENKINS_INSTANCE_URL: ${{ secrets.JENKINS_INSTANCE_URL }}
   JENKINS_USERNAME: ${{ secrets.jenkins_username }}
   JENKINS_ACCESS_TOKEN: ${{ secrets.jenkins_access_token }}
   JENKINSFILE_ACCESS_TOKEN: ${{ secrets.jenkinsfile_access_token }}

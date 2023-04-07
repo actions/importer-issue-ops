@@ -33,7 +33,7 @@ The following secrets are required:
 
 - `GH_ACCESS_TOKEN`: GitHub personal access token to create pull requests (requires `repo` and `workflow` scopes).
 
-Optionally, the following environment variables can be set:
+Optionally, the following secrets can be set:
 
 - `GITHUB_INSTANCE_URL`: The base URL of your GitHub instance (only required if it is **not** <https://github.com>).
 
@@ -50,7 +50,7 @@ The following secrets are required:
   - Task Groups (Read)
   - Variable Groups (Read)
 
-Optionally, the following environment variables can be set:
+Optionally, the following secrets can be set:
 
 - `AZURE_DEVOPS_INSTANCE_URL`: The base URL of your Azure DevOps instance (only required if it is **not** <https://dev.azure.com>).
 
@@ -61,7 +61,7 @@ The following secrets are required:
 - `CIRCLE_CI_ACCESS_TOKEN`: The personal access token to access the CircleCI instance.
 - `CIRCLE_CI_SOURCE_GITHUB_ACCESS_TOKEN`: The personal access token to access pipeline files stored in GitHub.
 
-Optionally, the following environment variables can be set:
+Optionally, the following secrets can be set:
 
 - `CIRCLE_CI_INSTANCE_URL`: The base URL of your CircleCI instance (only required if it is **not** <https://circleci.com>).
 
@@ -71,7 +71,7 @@ The following secrets are required:
 
 - `GITLAB_ACCESS_TOKEN`: The personal access token to access the GitLab instance (requires `read_api` scope).
 
-Optionally, the following environment variables can be set:
+Optionally, the following secrets can be set:
 
 - `GITLAB_INSTANCE_URL`: The base URL of your GitLab instance (only required if it is **not** <https://gitlab.com>).
 
@@ -82,9 +82,6 @@ The following secrets are required:
 - `JENKINSFILE_ACCESS_TOKEN`: The personal access token used to retrieve the contents of a `Jenkinsfile` stored in the build repository (requires `repo` scope).
 - `JENKINS_ACCESS_TOKEN`: The access token used to view Jenkins resources.
 - `JENKINS_USERNAME`: The username of the user's access token.
-
-The following environment variables are required:
-
 - `JENKINS_INSTANCE_URL`: The base URL of your Jenkins instance.
 
 ### Travis CI
@@ -94,7 +91,7 @@ The following secrets are required:
 - `TRAVIS_CI_ACCESS_TOKEN`: The personal access token to access the Travis CI instance.
 - `TRAVIS_CI_SOURCE_GITHUB_ACCESS_TOKEN`: The personal access token to access pipeline files stored in GitHub.
 
-Optionally, the following environment variables can be set:
+Optionally, the following secrets can be set:
 
 - `TRAVIS_CI_INSTANCE_URL`: The base URL of your Travis CI instance (only required if it is **not** <https://travis-ci.com>).
 
