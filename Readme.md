@@ -32,6 +32,7 @@ See the [documentation](https://docs.github.com/en/repositories/managing-your-re
 The following secrets are required:
 
 - `GH_ACCESS_TOKEN`: GitHub personal access token to create pull requests (requires `repo` and `workflow` scopes).
+- `GHCR_PASSWORD`: GitHub personal access token to pull docker image. Or update the **Install GitHub Actions Importer** step in *issue_ops.yml* to use `GH_TOKEN: ${{ github.token }}`
 
 Optionally, the following secrets can be set:
 
