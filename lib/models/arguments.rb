@@ -24,18 +24,17 @@ class Arguments
 
     arguments.concat(["--custom-transformers", *@custom_transformers]) if @custom_transformers.length.positive?
 
-    # rng = ENV["CI"] ? Random.new(0) : Random.new
-    rng = Random.new(0)
+    rng = Random.new
 
     set_output(
       "args",
       arguments.map do |a|
         value = a.include?(" ") ? a.inspect : a
-        
+
         unless value.start_with?("--")
-          name = "variable_#{rng.rand(0..1000)}"
+          name = "variable_#{rng.rand(1000..9999)}"
           set_environment(name, value)
-          
+
           value = "$#{name}"
         end
 
