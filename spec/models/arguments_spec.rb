@@ -54,7 +54,8 @@ RSpec.describe Arguments do
       let(:output) { ["--option", "value"] }
 
       it "writes an output variable" do
-        expect(arguments).to receive(:set_output).with("args", "--option value")
+        expect(arguments).to receive(:set_output).with("args", "--option $variable_1")
+        expect(arguments).to receive(:set_environment).with("variable_684", "value")
         subject
       end
     end

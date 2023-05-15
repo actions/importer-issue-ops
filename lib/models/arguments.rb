@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require_relative "../concerns/output_writer"
+require_relative "../concerns/environment_writer"
 
 class Arguments
-  include OutputWriter
+  include EnvironmentWriter
 
   def initialize(provider, command, issue_content)
     @args = argument_class(provider, command, issue_content)
@@ -24,12 +24,22 @@ class Arguments
 
     arguments.concat(["--custom-transformers", *@custom_transformers]) if @custom_transformers.length.positive?
 
+    # rng = ENV["CI"] ? Random.new(0) : Random.new
+    rng = Random.new(0)
+
     set_output(
       "args",
       arguments.map do |a|
-        next a unless a.include?(" ")
+        value = a.include?(" ") ? a.inspect : a
+        
+        unless value.start_with?("--")
+          name = "variable_#{rng.rand(0..1000)}"
+          set_environment(name, value)
+          
+          value = "$#{name}"
+        end
 
-        a.inspect
+        value
       end.join(" ")
     )
   end

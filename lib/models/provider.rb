@@ -7,7 +7,7 @@ require_rel "./jenkins/**/*.rb"
 require_rel "./travis_ci/**/*.rb"
 
 class Provider
-  include OutputWriter
+  include EnvironmentWriter
 
   PROVIDER_MAP = {
     "azure-devops" => ::AzureDevops,
