@@ -14,6 +14,8 @@ module EnvironmentWriter
   def modify_env(file, name, value)
     return if value.nil?
 
+    raise ArgumentError, "Invalid input: #{name}=#{value}" if value.include?("\n")
+
     File.open(ENV[file], "a") do |f|
       f.puts "#{name}=#{value}"
     end

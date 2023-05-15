@@ -23,6 +23,12 @@ RSpec.describe EnvironmentWriter do
 
       it { expect { subject }.not_to change { File.read(ENV["GITHUB_OUTPUT"], chomp: true).last } }
     end
+
+    context "when value contains a newline" do
+      let(:value) { "var_value\n" }
+
+      it { expect { subject }.to raise_error(ArgumentError) }
+    end
   end
 
   describe "#set_environment" do
@@ -38,6 +44,12 @@ RSpec.describe EnvironmentWriter do
       let(:value) { nil }
 
       it { expect { subject }.not_to change { File.read(ENV["GITHUB_ENV"], chomp: true).last } }
+    end
+
+    context "when value contains a newline" do
+      let(:value) { "env_var_value\n" }
+
+      it { expect { subject }.to raise_error(ArgumentError) }
     end
   end
 end
