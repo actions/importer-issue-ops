@@ -54,7 +54,8 @@ RSpec.describe Arguments do
       let(:output) { ["--option", "value"] }
 
       it "writes an output variable" do
-        expect(arguments).to receive(:set_output).with("args", "--option value")
+        expect(arguments).to receive(:set_output).with("args", /--option \$variable_\d{4}/)
+        expect(arguments).to receive(:set_environment).with(/variable_\d{4}/, "value")
         subject
       end
     end
@@ -63,7 +64,8 @@ RSpec.describe Arguments do
       let(:output) { ["--option", "some value"] }
 
       it "writes an output variable" do
-        expect(arguments).to receive(:set_output).with("args", "--option \"some value\"")
+        expect(arguments).to receive(:set_output).with("args", /--option \$variable_\d{4}/)
+        expect(arguments).to receive(:set_environment).with(/variable_\d{4}/, "\"some value\"")
         subject
       end
     end
@@ -73,7 +75,10 @@ RSpec.describe Arguments do
       let(:options) { { "custom-transformers" => "transformers/**/*.rb" } }
 
       it "writes an output variable" do
-        expect(arguments).to receive(:set_output).with("args", "--option value --custom-transformers transformers/**/*.rb")
+        expect(arguments).to receive(:set_output).with("args", /--option \$variable_\d{4} --custom-transformers \$variable_\d{4}/)
+        ["value", "transformers/**/*.rb"].each do |value|
+          expect(arguments).to receive(:set_environment).with(/variable_\d{4}/, value)
+        end
         subject
       end
     end
@@ -87,7 +92,11 @@ RSpec.describe Arguments do
       end
 
       it "writes an output variable" do
-        expect(arguments).to receive(:set_output).with("args", "--option value --custom-transformers transformers/jenkins/transformers.rb transformers/all.rb")
+        expect(arguments).to receive(:set_output).with("args", /--option \$variable_\d{4} --custom-transformers \$variable_\d{4} \$variable_\d{4}/)
+        ["value", *files].each do |value|
+          expect(arguments).to receive(:set_environment).with(/variable_\d{4}/, value)
+        end
+
         subject
       end
     end

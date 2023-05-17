@@ -29,6 +29,7 @@ RSpec.configure do |config|
     Dir.mkdir("tmp") unless Dir.exist?("tmp")
     FileUtils.touch "tmp/test.txt"
     ENV["GITHUB_OUTPUT"] = "tmp/test.txt"
+    ENV["GITHUB_ENV"] = "tmp/test.txt"
   end
 
   config.after(:suite) do

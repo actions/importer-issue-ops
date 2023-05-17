@@ -8,6 +8,10 @@ permissions:
   contents: read
   issues: write
 
+defaults:
+  run:
+    shell: bash
+
 env:
   GITHUB_INSTANCE_URL: ${{ secrets.GITHUB_INSTANCE_URL || 'https://github.com' }}
   GITHUB_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
@@ -31,7 +35,6 @@ jobs:
       log-filename: ${{ steps.logs.outputs.filename }}
     steps:
       - name: Install GitHub Actions Importer
-        shell: bash
         run: |
           gh actions-importer version || gh extension install github/gh-actions-importer
           gh actions-importer update
@@ -55,7 +58,9 @@ jobs:
         # env:
         #     ImageOS: ubuntu22
       - name: Install dependencies
-        run: bundle install --without development
+        run: bundle install
+        env:
+          BUNDLE_WITHOUT: development
       - name: Prepare arguments
         id: prepare
         env:
