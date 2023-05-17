@@ -25,6 +25,7 @@ class Arguments
     arguments.concat(["--custom-transformers", *@custom_transformers]) if @custom_transformers.length.positive?
 
     rng = Random.new
+    variable_names = Set.new
 
     set_output(
       "args",
@@ -33,6 +34,10 @@ class Arguments
 
         unless value.start_with?("--")
           name = "variable_#{rng.rand(1000..9999)}"
+          name = "variable_#{rng.rand(1000..9999)}" while variable_names.include?(name)
+
+          variable_names.add(name)
+
           set_environment(name, value)
 
           value = "$#{name}"
