@@ -19,10 +19,10 @@ class Arguments
   end
 
   def to_output
-    arguments = @args.to_a
-    return if arguments.blank?
-
+    arguments = @args.to_a || []
     arguments.concat(["--custom-transformers", *@custom_transformers]) if @custom_transformers.length.positive?
+
+    return if arguments.blank?
 
     rng = Random.new
     variable_names = Set.new
