@@ -22,8 +22,6 @@ class Arguments
     arguments = @args.to_a || []
     arguments.concat(["--custom-transformers", *@custom_transformers]) if @custom_transformers.length.positive?
 
-    puts arguments.to_s
-
     return if arguments.blank?
 
     rng = Random.new
