@@ -1,0 +1,43 @@
+name: Setup Repository
+
+on:
+  create:
+  workflow_dispatch:
+
+jobs:
+  configure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        name: Create labels
+        with:
+          script: |
+            const labels = [
+              'jenkins',
+              'azure-devops',
+              'circle-ci',
+              'gitlab',
+              'travis-ci',
+              'actions-importer-running'
+            ];
+
+            for (name of labels) {
+              try {
+                await github.rest.issues.createLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  name,
+                });
+              } catch (error) {
+                octokit.log.error(error.message || 'The label probably exists already');
+              }
+            }
+      - uses: actions/github-script@v6
+        name: Disable this workflow after initial run
+        with:
+          script: |
+            await github.rest.actions.disableWorkflow({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'setup-repository.yml',
+            });
