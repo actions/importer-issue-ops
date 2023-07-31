@@ -10,7 +10,7 @@ RSpec.describe Jenkins::DryRun do
     context "when the comment body contains a pipeline id" do
       let(:comment_body) { "/dry-run --source-url https://jenkins.company.com/job/pipeline" }
 
-      it { is_expected.to eq(["--source-url", "https://jenkins.company.com/job/pipeline"]) }
+      it { is_expected.to eq([["--source-url", "https://jenkins.company.com/job/pipeline"]]) }
     end
   end
 end

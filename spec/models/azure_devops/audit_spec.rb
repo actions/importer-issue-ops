@@ -25,7 +25,7 @@ RSpec.describe AzureDevops::Audit do
         ISSUE
       end
 
-      it { is_expected.to eq(["--azure-devops-organization", "my-organization"]) }
+      it { is_expected.to eq([["--azure-devops-organization", "my-organization"]]) }
     end
 
     context "when issue_content contains a project" do
@@ -36,7 +36,7 @@ RSpec.describe AzureDevops::Audit do
         ISSUE
       end
 
-      it { is_expected.to eq(["--azure-devops-organization", "my-organization", "--azure-devops-project", "my-project"]) }
+      it { is_expected.to eq([["--azure-devops-organization", "my-organization"], ["--azure-devops-project", "my-project"]]) }
     end
   end
 end

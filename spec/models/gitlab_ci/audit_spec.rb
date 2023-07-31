@@ -23,7 +23,7 @@ RSpec.describe GitlabCI::Audit do
         ISSUE
       end
 
-      it { is_expected.to eq(["--namespace", "testing"]) }
+      it { is_expected.to eq([["--namespace", "testing"]]) }
     end
   end
 end

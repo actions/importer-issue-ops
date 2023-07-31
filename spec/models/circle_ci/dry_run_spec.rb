@@ -15,7 +15,7 @@ RSpec.describe CircleCI::DryRun do
     context "when the comment body contains a project" do
       let(:comment_body) { "/dry-run --project repo" }
 
-      it { is_expected.to eq(["--circle-ci-organization", "testing", "--circle-ci-project", "repo"]) }
+      it { is_expected.to eq([["--circle-ci-organization", "testing"], ["--circle-ci-project", "repo"]]) }
     end
   end
 end

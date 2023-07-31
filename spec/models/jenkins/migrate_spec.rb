@@ -10,7 +10,7 @@ RSpec.describe Jenkins::Migrate do
     context "when the comment body contains a pipeline id" do
       let(:comment_body) { "/migrate --source-url https://jenkins.company.com/job/pipeline --target-url https://github.com/org/repo" }
 
-      it { is_expected.to eq(["--source-url", "https://jenkins.company.com/job/pipeline", "--target-url", "https://github.com/org/repo"]) }
+      it { is_expected.to eq([["--source-url", "https://jenkins.company.com/job/pipeline"], ["--target-url", "https://github.com/org/repo"]]) }
     end
   end
 end

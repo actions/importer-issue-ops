@@ -15,7 +15,7 @@ RSpec.describe TravisCI::Migrate do
     context "when the comment body contains a pipeline id" do
       let(:comment_body) { "/migrate --repository repo --target-url https://github.com/org/repo" }
 
-      it { is_expected.to eq(["--travis-ci-organization", "testing", "--travis-ci-repository", "repo", "--target-url", "https://github.com/org/repo"]) }
+      it { is_expected.to eq([["--travis-ci-organization", "testing"], ["--travis-ci-repository", "repo"], ["--target-url", "https://github.com/org/repo"]]) }
     end
   end
 end

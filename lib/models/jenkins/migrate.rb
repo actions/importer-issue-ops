@@ -11,8 +11,8 @@ module Jenkins
 
     def to_a
       args = []
-      args.concat(["--source-url", @source_url]) unless @source_url.nil?
-      args.concat(["--target-url", @target_url]) unless @target_url.nil?
+      args.push(["--source-url", @source_url]) unless @source_url.nil?
+      args.push(["--target-url", @target_url]) unless @target_url.nil?
 
       return args unless args.empty?
     end

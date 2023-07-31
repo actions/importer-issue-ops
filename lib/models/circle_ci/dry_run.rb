@@ -11,8 +11,8 @@ module CircleCI
 
     def to_a
       args = []
-      args.concat(["--circle-ci-organization", @organization]) unless @organization.nil?
-      args.concat(["--circle-ci-project", @project]) unless @project.nil?
+      args.push(["--circle-ci-organization", @organization]) unless @organization.nil?
+      args.push(["--circle-ci-project", @project]) unless @project.nil?
 
       return args unless args.empty?
     end

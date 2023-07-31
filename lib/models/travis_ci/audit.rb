@@ -11,7 +11,7 @@ module TravisCI
     def to_a
       return if @organization.nil?
 
-      ["--travis-ci-organization", @organization]
+      [["--travis-ci-organization", @organization]]
     end
   end
 end

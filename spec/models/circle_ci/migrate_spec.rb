@@ -15,7 +15,7 @@ RSpec.describe CircleCI::Migrate do
     context "when the comment body contains a project" do
       let(:comment_body) { "/migrate --project repo --target-url https://github.com/org/repo" }
 
-      it { is_expected.to eq(["--circle-ci-organization", "testing", "--circle-ci-project", "repo", "--target-url", "https://github.com/org/repo"]) }
+      it { is_expected.to eq([["--circle-ci-organization", "testing"], ["--circle-ci-project", "repo"], ["--target-url", "https://github.com/org/repo"]]) }
     end
   end
 end

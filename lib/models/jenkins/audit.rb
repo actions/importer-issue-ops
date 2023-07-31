@@ -11,7 +11,7 @@ module Jenkins
     def to_a
       return if @folders.nil?
 
-      ["--folders", @folders]
+      [["--folders", @folders]]
     end
   end
 end

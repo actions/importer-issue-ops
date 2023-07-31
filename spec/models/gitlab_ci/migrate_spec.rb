@@ -15,7 +15,7 @@ RSpec.describe GitlabCI::Migrate do
     context "when the comment body contains a pipeline id" do
       let(:comment_body) { "/migrate --project project --target-url https://github.com/org/repo" }
 
-      it { is_expected.to eq(["--namespace", "testing", "--project", "project", "--target-url", "https://github.com/org/repo"]) }
+      it { is_expected.to eq([["--namespace", "testing"], ["--project", "project"], ["--target-url", "https://github.com/org/repo"]]) }
     end
   end
 end

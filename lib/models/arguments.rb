@@ -20,7 +20,7 @@ class Arguments
 
   def to_output
     arguments = @args.to_a || []
-    arguments.concat(["--custom-transformers", *@custom_transformers]) if @custom_transformers.length.positive?
+    arguments.push(["--custom-transformers", *@custom_transformers]) if @custom_transformers.length.positive?
 
     return if arguments.blank?
 
@@ -29,21 +29,27 @@ class Arguments
 
     set_output(
       "args",
-      arguments.map do |a|
-        value = a.include?(" ") ? a.inspect : a
+      arguments.map do |value|
+        unless value.is_a?(Array)
+          value = value.inspect if value.include?(" ")
+          
+          next value
+        end
 
-        unless value.start_with?("--")
+        value.map.with_index do |v, index|
+          v = v.inspect if v.include?(" ")
+
+          next v if index.zero?
+
           name = "variable_#{rng.rand(1000..9999)}"
           name = "variable_#{rng.rand(1000..9999)}" while variable_names.include?(name)
 
           variable_names.add(name)
 
-          set_environment(name, value)
+          set_environment(name, v)
 
-          value = "$#{name}"
+          "$#{name}"
         end
-
-        value
       end.join(" ")
     )
   end

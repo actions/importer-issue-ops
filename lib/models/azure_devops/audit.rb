@@ -11,8 +11,8 @@ module AzureDevops
 
     def to_a
       args = []
-      args.concat(["--azure-devops-organization", @organization]) unless @organization.nil?
-      args.concat(["--azure-devops-project", @project]) unless @project.nil?
+      args.push(["--azure-devops-organization", @organization]) unless @organization.nil?
+      args.push(["--azure-devops-project", @project]) unless @project.nil?
 
       return args unless args.empty?
     end
