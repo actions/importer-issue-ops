@@ -32,7 +32,7 @@ class Arguments
       arguments.map do |value|
         unless value.is_a?(Array)
           value = value.inspect if value.include?(" ")
-          
+
           next value
         end
 
