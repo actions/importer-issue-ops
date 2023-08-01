@@ -23,7 +23,7 @@ RSpec.describe TravisCI::Audit do
         ISSUE
       end
 
-      it { is_expected.to eq(["--travis-ci-organization", "testing"]) }
+      it { is_expected.to eq([["--travis-ci-organization", "testing"]]) }
     end
   end
 end

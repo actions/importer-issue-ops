@@ -15,7 +15,7 @@ RSpec.describe TravisCI::DryRun do
     context "when the comment body contains a pipeline id" do
       let(:comment_body) { "/dry-run --repository repo" }
 
-      it { is_expected.to eq(["--travis-ci-organization", "testing", "--travis-ci-repository", "repo"]) }
+      it { is_expected.to eq([["--travis-ci-organization", "testing"], ["--travis-ci-repository", "repo"]]) }
     end
   end
 end

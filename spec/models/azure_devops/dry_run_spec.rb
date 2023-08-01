@@ -16,13 +16,13 @@ RSpec.describe AzureDevops::DryRun do
     context "when the comment body does not contain a pipeline type" do
       let(:comment_body) { "/dry-run" }
 
-      it { is_expected.to eq(["pipeline", "--azure-devops-organization", "my-organization", "--azure-devops-project", "my-project"]) }
+      it { is_expected.to eq(["pipeline", ["--azure-devops-organization", "my-organization"], ["--azure-devops-project", "my-project"]]) }
     end
 
     context "when the comment body contains a pipeline id" do
       let(:comment_body) { "/dry-run --pipeline-id 42" }
 
-      it { is_expected.to eq(["pipeline", "--azure-devops-organization", "my-organization", "--azure-devops-project", "my-project", "--pipeline-id", "42"]) }
+      it { is_expected.to eq(["pipeline", ["--azure-devops-organization", "my-organization"], ["--azure-devops-project", "my-project"], ["--pipeline-id", "42"]]) }
     end
   end
 end

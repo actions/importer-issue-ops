@@ -12,9 +12,9 @@ module TravisCI
 
     def to_a
       args = []
-      args.concat(["--travis-ci-organization", @organization]) unless @organization.nil?
-      args.concat(["--travis-ci-repository", @repository]) unless @repository.nil?
-      args.concat(["--target-url", @target_url]) unless @target_url.nil?
+      args.push(["--travis-ci-organization", @organization]) unless @organization.nil?
+      args.push(["--travis-ci-repository", @repository]) unless @repository.nil?
+      args.push(["--target-url", @target_url]) unless @target_url.nil?
 
       return args unless args.empty?
     end

@@ -23,7 +23,7 @@ RSpec.describe Jenkins::Audit do
         ISSUE
       end
 
-      it { is_expected.to eq(["--folders", "test, prod"]) }
+      it { is_expected.to eq([["--folders", "test, prod"]]) }
     end
   end
 end

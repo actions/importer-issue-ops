@@ -15,7 +15,7 @@ RSpec.describe GitlabCI::DryRun do
     context "when the comment body contains a pipeline id" do
       let(:comment_body) { "/dry-run --project project" }
 
-      it { is_expected.to eq(["--namespace", "testing", "--project", "project"]) }
+      it { is_expected.to eq([["--namespace", "testing"], ["--project", "project"]]) }
     end
   end
 end

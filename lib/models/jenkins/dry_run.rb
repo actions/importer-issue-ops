@@ -11,7 +11,7 @@ module Jenkins
     def to_a
       return if @source_url.nil?
 
-      ["--source-url", @source_url]
+      [["--source-url", @source_url]]
     end
   end
 end

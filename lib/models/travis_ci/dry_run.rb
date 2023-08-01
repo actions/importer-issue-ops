@@ -11,8 +11,8 @@ module TravisCI
 
     def to_a
       args = []
-      args.concat(["--travis-ci-organization", @organization]) unless @organization.nil?
-      args.concat(["--travis-ci-repository", @repository]) unless @repository.nil?
+      args.push(["--travis-ci-organization", @organization]) unless @organization.nil?
+      args.push(["--travis-ci-repository", @repository]) unless @repository.nil?
 
       return args unless args.empty?
     end

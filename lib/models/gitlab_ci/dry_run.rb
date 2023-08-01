@@ -11,8 +11,8 @@ module GitlabCI
 
     def to_a
       args = []
-      args.concat(["--namespace", @namespace]) unless @namespace.nil?
-      args.concat(["--project", @project]) unless @project.nil?
+      args.push(["--namespace", @namespace]) unless @namespace.nil?
+      args.push(["--project", @project]) unless @project.nil?
 
       return args unless args.empty?
     end

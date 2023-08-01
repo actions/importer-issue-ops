@@ -51,7 +51,7 @@ RSpec.describe Arguments do
     end
 
     context "when the output is not nil" do
-      let(:output) { ["--option", "value"] }
+      let(:output) { [["--option", "value"]] }
 
       it "writes an output variable" do
         expect(arguments).to receive(:set_output).with("args", /--option \$variable_\d{4}/)
@@ -61,7 +61,7 @@ RSpec.describe Arguments do
     end
 
     context "when the output contains a space" do
-      let(:output) { ["--option", "some value"] }
+      let(:output) { [["--option", "some value"]] }
 
       it "writes an output variable" do
         expect(arguments).to receive(:set_output).with("args", /--option \$variable_\d{4}/)
@@ -71,7 +71,7 @@ RSpec.describe Arguments do
     end
 
     context "when there is a custom transformers option" do
-      let(:output) { ["--option", "value"] }
+      let(:output) { [["--option", "value"]] }
       let(:options) { { "custom-transformers" => "transformers/**/*.rb" } }
 
       it "writes an output variable" do
@@ -84,7 +84,7 @@ RSpec.describe Arguments do
     end
 
     context "when there are custom transformers in the repository" do
-      let(:output) { ["--option", "value"] }
+      let(:output) { [["--option", "value"]] }
       let(:files) { ["transformers/jenkins/transformers.rb", "transformers/all.rb"] }
 
       before do

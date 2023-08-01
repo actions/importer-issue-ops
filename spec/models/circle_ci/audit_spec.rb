@@ -23,7 +23,7 @@ RSpec.describe CircleCI::Audit do
         ISSUE
       end
 
-      it { is_expected.to eq(["--circle-ci-organization", "testing"]) }
+      it { is_expected.to eq([["--circle-ci-organization", "testing"]]) }
     end
   end
 end

@@ -11,7 +11,7 @@ module GitlabCI
     def to_a
       return if @namespace.nil?
 
-      ["--namespace", @namespace]
+      [["--namespace", @namespace]]
     end
   end
 end

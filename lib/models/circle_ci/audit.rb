@@ -11,7 +11,7 @@ module CircleCI
     def to_a
       return if @organization.nil?
 
-      ["--circle-ci-organization", @organization]
+      [["--circle-ci-organization", @organization]]
     end
   end
 end
