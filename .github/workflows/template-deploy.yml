@@ -26,6 +26,7 @@ jobs:
               'circle-ci',
               'gitlab',
               'travis-ci',
+              'bamboo',
               'actions-importer-running'
             ];
 
