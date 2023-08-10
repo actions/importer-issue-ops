@@ -84,7 +84,7 @@ RSpec.describe Provider do
       LABELS
     end
 
-    it { is_expected.to eq(::TravisCI) }
+    it { is_expected.to eq(TravisCI) }
   end
 
   describe "to_output" do

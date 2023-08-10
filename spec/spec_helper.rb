@@ -5,7 +5,7 @@ require "factory_bot"
 require "faker"
 require "fileutils"
 
-require_relative "./../cli"
+require_relative "../cli"
 
 Dir[File.join(__dir__, "support/**/*.rb")].sort.each { |f| require f }
 
