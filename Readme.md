@@ -2,7 +2,7 @@
 
 The GitHub Actions Importer IssueOps repository demonstrates the functionality necessary to run GitHub Actions Importer commands through Actions and Issues, allowing you to migrate your CI/CD workflows without needing to install software on your local machine. This approach is especially useful for organizations that want to enable self-service migrations to GitHub Actions.
 
-[GitHub Actions Importer](https://docs.github.com/en/actions/migrating-to-github-actions/automating-migration-with-github-actions-importer) helps plan, forecast, and automate the migration of Azure DevOps, CircleCI, GitLab, Jenkins, Bamboo, and Travis CI pipelines to GitHub Actions. GitHub Actions Importer is distributed as a CLI and offers various commands you can use to migrate pipelines:
+[GitHub Actions Importer](https://docs.github.com/en/actions/migrating-to-github-actions/automating-migration-with-github-actions-importer) helps plan, forecast, and automate the migration of Azure DevOps, Bamboo, CircleCI, GitLab, Jenkins, and Travis CI pipelines to GitHub Actions. GitHub Actions Importer is distributed as a CLI and offers various commands you can use to migrate pipelines:
 
 - `audit`: An audit will fetch all the pipelines defined in an existing CI server, convert each pipeline to its equivalent in GitHub Actions, and write a report that summarizes how complete of a migration the GitHub Actions Importer can provide.
 - `dry-run`: A dry run will fetch a single pipeline definition, convert it to its equivalent in GitHub Actions, and write a file (or files) to disk containing the converted workflow.
