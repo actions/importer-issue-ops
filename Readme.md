@@ -22,7 +22,7 @@ The repository that is created from this template must have one of the following
 
 - Any action or reusable workflow can be used, regardless of who authored it or where it is defined.
 - Any action or reusable workflow that matches the specified criteria, plus those defined in a repository within the enterprise, can be used.
-   - Allow actions created by GitHub 
+   - Allow actions created by GitHub
    - Allow actions by marketplace verified creators or icnlude `ruby/setup-ruby@v1` in the allowed list of actions and reusable workflows.
 
 See the [documentation](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository#managing-github-actions-permissions-for-your-repository) for more information related to these settings.
@@ -94,6 +94,13 @@ The following secrets are required:
 Optionally, the following secrets can be set:
 
 - `TRAVIS_CI_INSTANCE_URL`: The base URL of your Travis CI instance (only required if it is **not** <https://travis-ci.com>).
+
+### Bamboo
+
+The following secrets are required:
+
+- `BAMBOO_ACCESS_TOKEN`: The personal access token to access the Bamboo instance.
+- `BAMBOO_INSTANCE_URL`: The base URL of your Bamboo instance.
 
 ## Pipeline migration
 
