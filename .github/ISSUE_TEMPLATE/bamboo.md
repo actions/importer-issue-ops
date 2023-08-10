@@ -16,6 +16,6 @@ The following commands can be executed by adding a comment to this issue:
 
 - `/audit`
 - `/dry-run --plan-type build|deployment`
-- `/migrate --plan-type pipeline|deployment --target-url :github-repository-url`
+- `/migrate --plan-type build|deployment --target-url :github-repository-url`
 
 **Note:** The `plan-type` option will default to `build` if omitted. If any remaining options are missing, the command will not be successful.
