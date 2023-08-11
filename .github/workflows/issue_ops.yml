@@ -68,7 +68,7 @@ jobs:
           COMMENT_BODY: ${{ github.event.comment.body }}
           LABELS: ${{ toJSON(github.event.issue.labels.*.name) }}
         run: |
-          ./bin/parse_issue "$ISSUE_BODY" "$COMMENT_BODY" "$LABELS"
+          bundle exec ./bin/parse_issue "$ISSUE_BODY" "$COMMENT_BODY" "$LABELS"
       - name: Validate arguments
         run: |
           if [ -z "${{ steps.prepare.outputs.provider }}" ]; then
