@@ -2,7 +2,7 @@
 
 The GitHub Actions Importer IssueOps repository demonstrates the functionality necessary to run GitHub Actions Importer commands through Actions and Issues, allowing you to migrate your CI/CD workflows without needing to install software on your local machine. This approach is especially useful for organizations that want to enable self-service migrations to GitHub Actions.
 
-[GitHub Actions Importer](https://docs.github.com/en/actions/migrating-to-github-actions/automating-migration-with-github-actions-importer) helps plan, forecast, and automate the migration of Azure DevOps, CircleCI, GitLab, Jenkins, and Travis CI pipelines to GitHub Actions. GitHub Actions Importer is distributed as a CLI and offers various commands you can use to migrate pipelines:
+[GitHub Actions Importer](https://docs.github.com/en/actions/migrating-to-github-actions/automating-migration-with-github-actions-importer) helps plan, forecast, and automate the migration of Azure DevOps, Bamboo, CircleCI, GitLab, Jenkins, and Travis CI pipelines to GitHub Actions. GitHub Actions Importer is distributed as a CLI and offers various commands you can use to migrate pipelines:
 
 - `audit`: An audit will fetch all the pipelines defined in an existing CI server, convert each pipeline to its equivalent in GitHub Actions, and write a report that summarizes how complete of a migration the GitHub Actions Importer can provide.
 - `dry-run`: A dry run will fetch a single pipeline definition, convert it to its equivalent in GitHub Actions, and write a file (or files) to disk containing the converted workflow.
@@ -13,7 +13,7 @@ The GitHub Actions Importer IssueOps repository demonstrates the functionality n
 Complete the following steps:
 
 1. Create a new repository using this repository as the template by clicking [here](https://github.com/actions/importer-issue-ops/generate).
-2. Create the following labels in this new repository, if they are not already present: `jenkins`, `azure-devops`, `circle-ci`, `gitlab`, `travis-ci`, and `actions-importer-running`.
+2. Create the following labels in this new repository, if they are not already present: `jenkins`, `azure-devops`, `circle-ci`, `gitlab`, `travis-ci`, `bamboo`, and `actions-importer-running`.
 3. Add the repository secrets described below that are relevant to the CI/CD providers being migrated.
 
 ### Repository settings
@@ -22,7 +22,7 @@ The repository that is created from this template must have one of the following
 
 - Any action or reusable workflow can be used, regardless of who authored it or where it is defined.
 - Any action or reusable workflow that matches the specified criteria, plus those defined in a repository within the enterprise, can be used.
-   - Allow actions created by GitHub 
+   - Allow actions created by GitHub
    - Allow actions by marketplace verified creators or icnlude `ruby/setup-ruby@v1` in the allowed list of actions and reusable workflows.
 
 See the [documentation](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository#managing-github-actions-permissions-for-your-repository) for more information related to these settings.
@@ -94,6 +94,13 @@ The following secrets are required:
 Optionally, the following secrets can be set:
 
 - `TRAVIS_CI_INSTANCE_URL`: The base URL of your Travis CI instance (only required if it is **not** <https://travis-ci.com>).
+
+### Bamboo
+
+The following secrets are required:
+
+- `BAMBOO_ACCESS_TOKEN`: The personal access token to access the Bamboo instance.
+- `BAMBOO_INSTANCE_URL`: The base URL of your Bamboo instance.
 
 ## Pipeline migration
 
