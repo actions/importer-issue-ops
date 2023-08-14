@@ -11,17 +11,17 @@ RSpec.describe Arguments do
 
     context "when the command is found" do
       before do
-        expect(provider).to receive(:module).and_return(::Jenkins).at_least(:once)
+        expect(provider).to receive(:module).and_return(Jenkins).at_least(:once)
         expect(command).to receive(:classify).and_return("Audit").at_least(:once)
         expect(command).to receive(:options).and_return({})
       end
 
-      it { is_expected.to be_a(::Jenkins::Audit) }
+      it { is_expected.to be_a(Jenkins::Audit) }
     end
 
     context "when the command is not found" do
       before do
-        expect(provider).to receive(:module).and_return(::Jenkins).at_least(:once)
+        expect(provider).to receive(:module).and_return(Jenkins).at_least(:once)
         expect(command).to receive(:classify).and_return("Whoopsie").at_least(:once)
       end
 
@@ -35,10 +35,10 @@ RSpec.describe Arguments do
     let(:options) { {} }
 
     before do
-      expect(provider).to receive(:module).and_return(::AzureDevops).at_least(:once)
+      expect(provider).to receive(:module).and_return(AzureDevops).at_least(:once)
       expect(command).to receive(:classify).and_return("Audit").at_least(:once)
       expect(command).to receive(:options).and_return(options)
-      expect_any_instance_of(::AzureDevops::Audit).to receive(:to_a).and_return(output)
+      expect_any_instance_of(AzureDevops::Audit).to receive(:to_a).and_return(output)
     end
 
     context "when the output is nil" do

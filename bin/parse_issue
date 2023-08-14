@@ -4,7 +4,7 @@
 require "yaml"
 require "open3"
 
-require_relative "./../cli"
+require_relative "../cli"
 
 issue_content, comment_body, labels = ARGV
 

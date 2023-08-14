@@ -15,9 +15,9 @@ group :development do
   gem "pry-byebug",          "~> 3.9"
   gem "rspec",               "~> 3.10"
   gem "rspec-github",        "~> 2.3", ">= 2.3.1"
-  gem "rubocop",             "~> 0.80", "< 0.81"
-  gem "rubocop-github",      "~> 0.14.0"
-  gem "rubocop-performance", "~> 1.6.1"
+  gem "rubocop",             "~> 1.5"
+  gem "rubocop-github",      "~> 0.2"
+  gem "rubocop-performance", "~> 1.18"
   gem "ruby-debug-ide",      "~> 0.7.2"
   gem "shoulda-matchers",    "~> 4.5.1"
 end
