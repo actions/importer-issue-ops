@@ -101,6 +101,11 @@ The following secrets are required:
 
 - `BAMBOO_ACCESS_TOKEN`: The personal access token to access the Bamboo instance.
 - `BAMBOO_INSTANCE_URL`: The base URL of your Bamboo instance.
+### Bitbucket
+
+The following secrets are required:
+
+- `BITBUCKET_ACCESS_TOKEN`: The personal access token to access the BitBucket instance.
 
 ## Pipeline migration
 

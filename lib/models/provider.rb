@@ -11,11 +11,12 @@ class Provider
 
   PROVIDER_MAP = {
     "azure-devops" => ::AzureDevops,
+    "bamboo"       => ::Bamboo,
+    "bitbucket"    => ::Bitbucket,
     "circle-ci"    => ::CircleCI,
     "gitlab"       => ::GitlabCI,
     "jenkins"      => ::Jenkins,
-    "travis-ci"    => ::TravisCI,
-    "bamboo"       => ::Bamboo
+    "travis-ci"    => ::TravisCI
   }.freeze
 
   def initialize(labels)
