@@ -35,7 +35,7 @@ The following secrets are required:
 
 Optionally, the following secrets can be set:
 
-- `GITHUB_INSTANCE_URL`: The base URL of your GitHub instance (only required if it is **not** <https://github.com>).
+- `GH_INSTANCE_URL`: The base URL of your GitHub instance (only required if it is **not** <https://github.com>).
 
 ### Azure DevOps
 
