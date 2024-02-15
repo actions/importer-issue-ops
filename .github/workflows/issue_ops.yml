@@ -13,7 +13,7 @@ defaults:
     shell: bash
 
 env:
-  GITHUB_INSTANCE_URL: ${{ secrets.GITHUB_INSTANCE_URL || 'https://github.com' }}
+  GITHUB_INSTANCE_URL: ${{ secrets.GH_INSTANCE_URL || 'https://github.com' }}
   GITHUB_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
   JENKINS_INSTANCE_URL: ${{ secrets.JENKINS_INSTANCE_URL }}
   JENKINS_USERNAME: ${{ secrets.jenkins_username }}
@@ -28,6 +28,7 @@ env:
   CIRCLE_CI_SOURCE_GITHUB_ACCESS_TOKEN: ${{ secrets.circle_ci_source_github_access_token }}
   BAMBOO_ACCESS_TOKEN: ${{ secrets.bamboo_access_token }}
   BAMBOO_INSTANCE_URL: ${{ secrets.bamboo_instance_url }}
+  BITBUCKET_ACCESS_TOKEN: ${{ secrets.bitbucket_access_token }}
 
 jobs:
   execute-actions-importer:
