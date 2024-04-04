@@ -107,7 +107,7 @@ jobs:
     if: needs.execute-actions-importer.outputs.command == 'audit'
     needs: execute-actions-importer
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/actions/download-artifact@v4
         if: always()
         with:
           name: output
@@ -142,7 +142,7 @@ jobs:
     if: needs.execute-actions-importer.outputs.command == 'dry-run'
     needs: execute-actions-importer
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/actions/download-artifact@v4
         if: always()
         with:
           name: output
@@ -198,7 +198,7 @@ jobs:
     if: needs.execute-actions-importer.outputs.command == 'migrate'
     needs: execute-actions-importer
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/actions/download-artifact@v4
         if: always()
         with:
           name: logs
@@ -234,7 +234,7 @@ jobs:
     needs: [execute-actions-importer, audit, migrate, dry-run]
     if: always()
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/actions/download-artifact@v4
         if: always() && needs.execute-actions-importer.result == 'failure'
         with:
           name: logs
