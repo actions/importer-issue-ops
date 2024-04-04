@@ -43,7 +43,7 @@ jobs:
           gh actions-importer update
         env:
           GH_TOKEN: ${{ github.token }}
-      - uses: actions/github-script@v6
+      - uses: actions/github-script@v7
         if: always()
         with:
           script: |
@@ -111,7 +111,7 @@ jobs:
         if: always()
         with:
           name: output
-      - uses: actions/github-script@v6
+      - uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs')
@@ -146,7 +146,7 @@ jobs:
         if: always()
         with:
           name: output
-      - uses: actions/github-script@v6
+      - uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs')
@@ -209,7 +209,7 @@ jobs:
           echo "output=$pullRequest" >> $GITHUB_OUTPUT
         env:
           pullRequestPattern: "Pull request: "
-      - uses: actions/github-script@v6
+      - uses: actions/github-script@v7
         env:
           PULL_REQUEST_URL: "${{ steps.pull-request-url.outputs.output }}"
         with:
@@ -238,7 +238,7 @@ jobs:
         if: always() && needs.execute-actions-importer.result == 'failure'
         with:
           name: logs
-      - uses: actions/github-script@v6
+      - uses: actions/github-script@v7
         if: always() && needs.execute-actions-importer.result == 'failure'
         with:
           script: |
@@ -261,7 +261,7 @@ jobs:
               repo: context.repo.repo,
               body
             })
-      - uses: actions/github-script@v6
+      - uses: actions/github-script@v7
         if: always()
         with:
           script: |
