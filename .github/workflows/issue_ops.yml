@@ -53,7 +53,7 @@ jobs:
               repo: context.repo.repo,
               labels: ['actions-importer-running']
             })
-      - uses: actions/checkout@4
+      - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
         # ImageOs must be configured to match the OS of the runner when using self-hosted runners.
         # env:
