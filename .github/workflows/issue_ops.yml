@@ -36,6 +36,7 @@ jobs:
     outputs:
       command: ${{ steps.prepare.outputs.command }}
       log-filename: ${{ steps.logs.outputs.filename }}
+      output-url: ${{ steps.output.outputs.artifact-url }}
     steps:
       - name: Install GitHub Actions Importer
         run: |
@@ -85,6 +86,7 @@ jobs:
             ${{ steps.prepare.outputs.args }} \
             --output-dir output
       - uses: actions/upload-artifact@v4
+        id: output
         if: always()
         with:
           path: output/
@@ -174,6 +176,8 @@ jobs:
               }
 
               if (currentLength > MAX_LENGTH){
+                workflows.push(`... Dry-run outputs are too large to display in issue comment.`)
+                workflows.push(`Download the full output [here](${{ needs.execute-actions-importer.outputs.output-url }})`)
                 break
               }
 
@@ -208,10 +212,10 @@ jobs:
           echo $pullRequest
           echo "output=$pullRequest" >> $GITHUB_OUTPUT
         env:
-          pullRequestPattern: "Pull request: "
+          pullRequestPattern: 'Pull request: '
       - uses: actions/github-script@v7
         env:
-          PULL_REQUEST_URL: "${{ steps.pull-request-url.outputs.output }}"
+          PULL_REQUEST_URL: '${{ steps.pull-request-url.outputs.output }}'
         with:
           script: |
             const body = `Migration was successful :sparkles:
